@@ -1,10 +1,9 @@
 import React from 'react'
+import Problems from '@/components/Problems'
 
 const page = () => {
   return (
-    <div className='w-full flex justify-center items-center'>
-      Problems
-    </div>
+    <Problems />
   )
 }
 
