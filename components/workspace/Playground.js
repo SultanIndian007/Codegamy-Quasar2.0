@@ -5,7 +5,6 @@ import ThemeDropdown from "./ThemeDropdown";
 import CodeEditorWindow from "./CodeEditorWindow";
 import OutputWindow from "./OutputWindow";
 import CustomInput from "./CustomInput";
-import OutputDetails from "./OutputDetails";
 import Split from "react-split";
 import { languagesData } from "@/constants";
 import { defineTheme } from "@/lib/defineTheme";
@@ -13,7 +12,6 @@ import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
 import Timer from "./Timer";
 import axios from "axios";
 import Loader from "../shared/Loader";
-import codeClient from "@/codeClient";
 
 const Playground = () => {
 
