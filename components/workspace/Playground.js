@@ -16,7 +16,6 @@ import axios from "axios";
 
 import axios from "axios";
 import Loader from "../shared/Loader";
-import codeClient from "@/codeClient";
 
 const Playground = () => {
 
@@ -113,15 +112,6 @@ useEffect(() => {
     finally {
       setIsCodeRunning(false);
     }
-
-    setProcessing(true);
-    axios.request(options).then(function (response) {
-      setProcessing(false);
-      setOutputDetails(response.data.output);
-    }).catch(function (error) {
-      setProcessing(false);
-      console.error(error);
-    });
   }
 
   const handleSubmit = async () => {}
