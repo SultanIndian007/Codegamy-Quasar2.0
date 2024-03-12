@@ -110,33 +110,29 @@ const ProblemDesc = ({ problems }) => {
                 </div>
                 {/* section 3 */}
                 <div className='mt-4 px-5'>
-                    {clickedProblems?.examples.map((examples, index) => (
-                        <div key={index} >
-                            <p className='font-medium '>Example  {examples.id + 1}</p>
-                            <div className='example-card'>
-                                <pre>
-                                    <strong className=''>Input: </strong> {examples.inputText}
-                                    <br />
-                                    <strong>Output:</strong> {examples.outputText}
-                                    <br />
-
-                                    {examples.explanation && (
-                                        <>
-                                            <strong>Explanation: </strong> {examples.explanation}
-                                        </>
-                                    )}
-
-                                </pre>
-                            </div>
-                        </div>
-
-                    ))}
-
+                    <h2 className='font-bold'>Input Format</h2>
+                    <div dangerouslySetInnerHTML={{ __html: clickedProblems?.inputFormat || '' }} />
                 </div>
-                <div className='px-5 py-2 '>
+                <div className='mt-4 px-5'>
+                    <h2 className='font-bold'>Output Format</h2>
+                    <div dangerouslySetInnerHTML={{ __html: clickedProblems?.outputFormat || '' }} />
+                </div>
+                <div className='mt-4 px-5'>
+                    <h2 className='font-bold'>Sample Input</h2>
+                    <div className='bg-light-4 font-mono mt-1 py-2 px-3 rounded-lg'>
+                        <div dangerouslySetInnerHTML={{ __html: clickedProblems?.sampleInput || '' }} />
+                    </div>
+                </div>
+                <div className='mt-4 px-5'>
+                    <h2 className='font-bold'>Sample Output</h2>
+                    <div className='bg-light-4 font-mono mt-1 py-2 px-3 rounded-lg'>
+                        <div dangerouslySetInnerHTML={{ __html: clickedProblems?.sampleOutput || '' }} />
+                    </div>
+                </div>
+                <div className='mt-2 px-5 py-2'>
                     {clickedProblems?.constraints && (
                         <>
-                            Constraints:<br />
+                            <b>Constraints:</b><br />
                             <strong>
                                 <div className='m-5' dangerouslySetInnerHTML={{ __html: clickedProblems?.constraints || '' }} />
                             </strong>

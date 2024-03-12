@@ -92,3 +92,7 @@ code {
 .cm-focused {
   outline: none !important;
 }
+
+li {
+  list-style-type: disc;
+}
