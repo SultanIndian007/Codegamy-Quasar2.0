@@ -14,13 +14,17 @@ import Timer from "./Timer";
 import axios from "axios";
 
 
+import axios from "axios";
+import Loader from "../shared/Loader";
+import codeClient from "@/codeClient";
 
 const Playground = () => {
 
   const [code, setCode] = useState('print("Helo !!")');
   const [customInput, setCustomInput] = useState("");
   const [outputDetails, setOutputDetails] = useState(null);
-  const [processing, setProcessing] = useState(null);
+  const [isCodeRunning, setIsCodeRunning] = useState(false);
+  const [isCodeSubmitting, setIsCodeSubmitting] = useState(false);
   const [theme, setTheme] = useState({value: "cobalt", label: "Cobalt"});
   const [language, setLanguage] = useState(languagesData[languagesData.length-18]);
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -53,7 +57,7 @@ useEffect(() => {
 
   function handleThemeChange(th) {
     const theme = th;
-    console.log("theme...", theme);
+    // console.log("theme...", theme);
 
     if (["light", "vs-dark"].includes(theme.value)) {
       setTheme(theme);
@@ -80,22 +84,35 @@ useEffect(() => {
     }
   };
 
-  const handleCompile = () => {
+  const handleCompile = async (input) => {
+
+    setIsCodeRunning(true);
     const options = {
       method: 'POST',
       url: 'https://jdoodle2.p.rapidapi.com/v1',
       headers: {
         'content-type': 'application/json',
-        'X-RapidAPI-Key': process.env.NEXT_PUBLIC_API_KEY,
-        'X-RapidAPI-Host': 'jdoodle2.p.rapidapi.com'
+        'X-RapidAPI-Key': process.env.NEXT_PUBLIC_RAPID_API_KEY,
+        'X-RapidAPI-Host': process.env.NEXT_PUBLIC_RAPID_API_HOST
       },
       data: {
-        language: (language ? language.id : 'python3'),
+        language: language.id,
         version: 'latest',
         code: code,
-        input: customInput
+        input: input
       }
     };
+
+    try {
+      const response = await axios.request(options);
+      setOutputDetails(response.data);
+    } 
+    catch (error) {
+      console.error(error);
+    }
+    finally {
+      setIsCodeRunning(false);
+    }
 
     setProcessing(true);
     axios.request(options).then(function (response) {
@@ -106,6 +123,8 @@ useEffect(() => {
       console.error(error);
     });
   }
+
+  const handleSubmit = async () => {}
 
   return (
     <div className="w-full flex flex-col">
@@ -135,18 +154,18 @@ useEffect(() => {
         <div className="!w-full min-h-[30%] flex flex-col">
           <div className="flex justify-end items-center gap-3">
             <button
-              onClick={handleCompile}
+              onClick={() => handleCompile(customInput)}
               disabled={!code}
               className={`px-4 py-2 bg-dark-4 text-light-1 mt-2 rounded-lg text-sm`}
             >
-              {processing ? "..." : "Run"}
+              {isCodeRunning ? <Loader /> : "Run"}
             </button>
             <button
-              onClick={handleCompile}
+              onClick={() => handleCompile(customInput)}
               disabled={!code}
               className={`px-4 py-2 bg-green-600 text-light-1 mt-2 rounded-lg text-sm`}
             >
-              {processing ? "..." : "Submit"}
+              {isCodeSubmitting ? <Loader /> : "Submit"}
             </button>
           </div>
 
