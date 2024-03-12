@@ -19,6 +19,9 @@ const Navbar = () => {
           <Link href='/contests'>
             Contest
           </Link>
+          <Link href='/learn'>
+            Learn
+          </Link>
         </div>
       </div>
 
