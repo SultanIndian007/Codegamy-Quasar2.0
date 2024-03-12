@@ -8,7 +8,13 @@ const OutputWindow = ({ outputDetails }) => {
         Output
       </h3>
       <div className="w-full flex-grow bg-dark-2 rounded-lg text-white p-2 font-mono text-sm overflow-y-auto">
-        Hello world!
+        {outputDetails && (
+          <>
+          <p className="text-xs text-blue-500">CPUTime: {outputDetails.cpuTime}s</p>
+          <p className="text-xs text-blue-500 mb-2">Memory: {outputDetails.memory}b</p>
+          {outputDetails.output}
+          </>
+        )}
       </div>
     </div>
   );
