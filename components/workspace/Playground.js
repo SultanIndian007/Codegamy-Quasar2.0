@@ -11,10 +11,13 @@ import { languagesData } from "@/constants";
 import { defineTheme } from "@/lib/defineTheme";
 import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
 import Timer from "./Timer";
+import axios from "axios";
+
+
 
 const Playground = () => {
 
-  const [code, setCode] = useState('print("Hello world!!")');
+  const [code, setCode] = useState('print("Helo !!")');
   const [customInput, setCustomInput] = useState("");
   const [outputDetails, setOutputDetails] = useState(null);
   const [processing, setProcessing] = useState(null);
@@ -78,7 +81,30 @@ useEffect(() => {
   };
 
   const handleCompile = () => {
+    const options = {
+      method: 'POST',
+      url: 'https://jdoodle2.p.rapidapi.com/v1',
+      headers: {
+        'content-type': 'application/json',
+        'X-RapidAPI-Key': process.env.NEXT_PUBLIC_API_KEY,
+        'X-RapidAPI-Host': 'jdoodle2.p.rapidapi.com'
+      },
+      data: {
+        language: (language ? language.id : 'python3'),
+        version: 'latest',
+        code: code,
+        input: customInput
+      }
+    };
 
+    setProcessing(true);
+    axios.request(options).then(function (response) {
+      setProcessing(false);
+      setOutputDetails(response.data.output);
+    }).catch(function (error) {
+      setProcessing(false);
+      console.error(error);
+    });
   }
 
   return (
