@@ -11,11 +11,14 @@ import { defineTheme } from "@/lib/defineTheme";
 import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
 import Timer from "./Timer";
 import axios from "axios";
+
+
+import axios from "axios";
 import Loader from "../shared/Loader";
 
 const Playground = () => {
 
-  const [code, setCode] = useState('print("Hello world!!")');
+  const [code, setCode] = useState('print("Helo !!")');
   const [customInput, setCustomInput] = useState("");
   const [outputDetails, setOutputDetails] = useState(null);
   const [isCodeRunning, setIsCodeRunning] = useState(false);
@@ -108,7 +111,6 @@ useEffect(() => {
     finally {
       setIsCodeRunning(false);
     }
-
   }
 
   const handleSubmit = async () => {}
