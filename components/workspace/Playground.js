@@ -6,27 +6,25 @@ import CodeEditorWindow from "./CodeEditorWindow";
 import OutputWindow from "./OutputWindow";
 import CustomInput from "./CustomInput";
 import Split from "react-split";
-import { languagesData } from "@/constants";
-import { defineTheme } from "@/lib/defineTheme";
+import { languagesData, mockComments } from "@/constants";
 import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
 import Timer from "./Timer";
 import axios from "axios";
 import Loader from "../shared/Loader";
-import { toast } from 'react-toastify';
 import { useParams } from "next/navigation";
+import FontSizeDropdown from "./FontSizeDropdown";
 
 const Playground = ({ problems, isForSubmission = true, setSubmitted }) => {
   
   const params = useParams();
-  const [code, setCode] = useState('print("Hello world!!")');
   const [customInput, setCustomInput] = useState("");
   const [outputDetails, setOutputDetails] = useState(null);
   const [isCodeRunning, setIsCodeRunning] = useState(false);
   const [isCodeSubmitting, setIsCodeSubmitting] = useState(false);
-  const [theme, setTheme] = useState({ value: "cobalt", label: "Cobalt" });
-  const [language, setLanguage] = useState(
-    languagesData[languagesData.length - 18]
-  );
+  const [theme, setTheme] = useState({ value: "dark", label: "Dark" });
+  const [language, setLanguage] = useState(languagesData[3]);
+  const [code, setCode] = useState(mockComments[language.value]);
+  const [fontSize, setFontSize] = useState({ value: '14', label: '14px' });
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [clickedProblem, setClickedProblem] = useState();
 
@@ -68,23 +66,6 @@ const Playground = ({ problems, isForSubmission = true, setSubmitted }) => {
     }
   }, [isFullScreen]);
 
-  function handleThemeChange(th) {
-    const theme = th;
-    // console.log("theme...", theme);
-
-    if (["light", "vs-dark"].includes(theme.value)) {
-      setTheme(theme);
-    } else {
-      defineTheme(theme.value).then((_) => setTheme(theme));
-    }
-  }
-
-  useEffect(() => {
-    defineTheme("oceanic-next").then((_) =>
-      setTheme({ value: "oceanic-next", label: "Oceanic Next" })
-    );
-  }, []);
-
   const onChange = (action, data) => {
     switch (action) {
       case "code": {
@@ -108,7 +89,7 @@ const Playground = ({ problems, isForSubmission = true, setSubmitted }) => {
         "X-RapidAPI-Host": process.env.NEXT_PUBLIC_RAPID_API_HOST,
       },
       data: {
-        language: language.id,
+        language: language.value,
         version: "latest",
         code: code,
         input: input,
@@ -161,8 +142,9 @@ const Playground = ({ problems, isForSubmission = true, setSubmitted }) => {
     <div className="w-full flex flex-col">
       <div className="flex px-4 gap-2 justify-between">
         <div className="flex gap-2">
-          <LanguagesDropdown onSelectChange={(lang) => setLanguage(lang)} />
-          <ThemeDropdown handleThemeChange={handleThemeChange} theme={theme} />
+          <LanguagesDropdown onSelectChange={(lang) => {setLanguage(lang);setCode(mockComments[lang.value])}} />
+          <ThemeDropdown handleThemeChange={(th) => setTheme(th)} />
+          <FontSizeDropdown onSelectChange={(f) => setFontSize(f)} />
         </div>
         <div className="flex gap-2 items-center">
           <Timer />
@@ -186,8 +168,9 @@ const Playground = ({ problems, isForSubmission = true, setSubmitted }) => {
         <CodeEditorWindow
           code={code}
           onChange={onChange}
-          language={language.id}
+          language={language.value}
           theme={theme.value}
+          fontSize={fontSize.value}
         />
 
         <div className="!w-full min-h-[30%] flex flex-col">

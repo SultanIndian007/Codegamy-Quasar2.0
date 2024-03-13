@@ -4,12 +4,12 @@ import { languagesData } from "@/constants";
 import { customStyles } from "@/utils/customStyles";
 
 const LanguagesDropdown = ({ onSelectChange }) => {
+  
   return (
     <Select
-      placeholder={`Filter By Category`}
       options={languagesData}
       styles={customStyles}
-      defaultValue={languagesData[languagesData.length-18]}
+      defaultValue={languagesData[3]}
       onChange={(selectedOption) => onSelectChange(selectedOption)}
     />
   );

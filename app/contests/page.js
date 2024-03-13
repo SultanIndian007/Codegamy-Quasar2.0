@@ -1,8 +1,11 @@
-import React from 'react'
+
 
 const page = () => {
+
   return (
-    <div>page</div>
+    <div className='w-full h-screen flex flex-col justify-center items-center gap-10'>
+      <h1 className='font-bold text-xl'>Contests</h1>
+    </div>
   )
 }
 
