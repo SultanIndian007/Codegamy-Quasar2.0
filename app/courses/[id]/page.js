@@ -10,19 +10,16 @@ import { useParams } from 'next/navigation'
 const page = () => {
 
     const params = useParams();
-    const courseId = params.id
-    // console.log(courseId)
-    const moduledata = ModulesData[courseId]
-    const contentdata = ContentData[courseId]
-    const [data, setData] = useState(contentdata[0].content)
+    const courseId = params.id;
+    const moduledata = ModulesData[courseId];
+    const contentdata = ContentData[courseId];
+    const [data, setData] = useState(contentdata[0].content);
 
     return (
-        <>
-            <Split className='split px-1 h-[92vh]' minSize={500}>
-                <Modules modules={moduledata} setData={setData} data={contentdata} />
-                <Content content={data} />
-            </Split>
-        </>
+        <div className="w-full px-1 h-[92vh] flex gap-3 pr-5">
+            <Modules modules={moduledata} setData={setData} data={contentdata} />
+            <Content content={data} />
+        </div>
     )
 }
 

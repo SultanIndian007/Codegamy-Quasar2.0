@@ -7,10 +7,6 @@ import { useRouter } from 'next/navigation';
 const CourseCard = ({ name, title, desc, progress, button }) => {
     const router = useRouter();
 
-    const handleCompile = () => {
-        router.push(`/courses/${name}`);
-    }
-
     return (
         <Card style={{backgroundColor: '#f8f9fa',
             borderRadius: '10px',
@@ -21,19 +17,17 @@ const CourseCard = ({ name, title, desc, progress, button }) => {
             margin: '20px'
         }}
         >
-            <CardBody style={{display: 'flex', flexDirection: 'column', padding:"20px", justifyContent: 'space-between', flexWrap: 'wrap', gap:"10px"}}>
+            <CardBody className='flex flex-col p-4 justify-between gap-4 h-full'>
                 <CardTitle 
-                    tag="h3"
+                    tag="h2"
                 >{title}</CardTitle>
                 <CardText
-                    style={{
-                        fontSize: '12px'
-                    }}
+                    className='text-sm flex-grow'
                 >{desc}</CardText>
                 <Progress value={50}  style={{height: '10px', borderRadius: '5px'}}/>
                 <Button
-                    className='hover:bg-blue-800 hover:border-blue-900  hover:text-white p-2 w-24 rounded-lg bg-blue-600 border-blue-700 text-xs font-thin text-gray-300'
-                    onClick={handleCompile}
+                    className='w-full hover:bg-blue-800 hover:border-blue-900  text-light-1 p-2 rounded-lg bg-blue-600 border-blue-700 text-sm font-thin transition-all'
+                    onClick={() => router.push(`/courses/${name}`)}
                 >Read More</Button>
             </CardBody>
         </Card>
