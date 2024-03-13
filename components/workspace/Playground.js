@@ -116,7 +116,7 @@ const Playground = ({ problems, isForSubmission = true, setSubmitted }) => {
       let allCorrect = true;
       for (let i=0; i<testcases.input.length; i++) {
         const ans = await handleCompile(testcases.input[i], true);
-        if (ans.toLowerCase()!==testcases.output[i]) {
+        if (ans!==testcases.output[i]) {
           allCorrect = false;
           setOutputDetails({
             submitted: true, accepted: false, output: ans
@@ -148,7 +148,7 @@ const Playground = ({ problems, isForSubmission = true, setSubmitted }) => {
         </div>
         <div className="flex gap-2 items-center">
           <Timer />
-          <button onClick={handleFullScreen}>
+          <button onClick={handleFullScreen} className="hover:bg-light-3 hover:border-light-4 rounded-lg p-1">
             <div className="h-6 w-6 font-bold text-2xl text-dark-4">
               {!isFullScreen ? (
                 <AiOutlineFullscreen />
@@ -161,7 +161,7 @@ const Playground = ({ problems, isForSubmission = true, setSubmitted }) => {
       </div>
 
       <Split
-        className="!w-full flex-grow flex flex-col items-start px-4 py-4"
+        className="!w-full flex-grow flex flex-col items-start px-4 pt-4"
         direction="vertical"
         minSize={100}
       >

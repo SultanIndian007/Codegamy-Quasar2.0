@@ -58,14 +58,14 @@ const ProblemDesc = ({ problems }) => {
     return (
         <div className='w-full flex flex-col overflow-x-hidden overflow-y-auto px-1'>
             <div className='flex h-11 w-full items-center pt-2 bg-light-3 rounded-t-lg px-2'>
-                <div className='bg-light-2 rounded-t-md px-5 py-[10px] text-xs cursor-pointer'>
+                <div className='bg-light-2 rounded-t-md px-5 py-[10px] text-sm cursor-pointer'>
                     Description
                 </div>
             </div>
             <div className='bg-light-2 rounded-b-lg flex-grow'>
-                <div className='text-lg p-5'>
+                <h2 className='font-semibold text-xl p-5'>
                     {clickedProblems?.order}. {clickedProblems?.title}
-                </div>
+                </h2>
                 {/* section 1 */}
                 <div className='flex items-center justify-start m-2'>
                     <div className={`mx-4 px-4 py-1 w-15 rounded-full backdrop-blur-smtext-base
