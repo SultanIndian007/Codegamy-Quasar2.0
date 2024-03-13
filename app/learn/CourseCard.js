@@ -1,11 +1,14 @@
 'use client';
 import react from 'react';
 import { Button, Card, CardBody, CardTitle, CardText, Progress } from 'reactstrap';
+import { useRouter } from 'next/navigation';
 
 
-const CourseCard = ({ title, desc, progress, button }) => {
+const CourseCard = ({ name, title, desc, progress, button }) => {
+    const router = useRouter();
 
     const handleCompile = () => {
+        router.push(`/courses/${name}`);
     }
 
     return (
@@ -29,15 +32,7 @@ const CourseCard = ({ title, desc, progress, button }) => {
                 >{desc}</CardText>
                 <Progress value={50}  style={{height: '10px', borderRadius: '5px'}}/>
                 <Button
-                    style={{
-                        backgroundColor: '#007bff',
-                        borderColor: '#007bff',
-                        fontSize: '12px',
-                        width: '100px',
-                        padding: '5px',
-                        borderRadius: '5px',
-                    
-                    }}
+                    className='hover:bg-blue-800 hover:border-blue-900  hover:text-white p-2 w-24 rounded-lg bg-blue-600 border-blue-700 text-xs font-thin text-gray-300'
                     onClick={handleCompile}
                 >Read More</Button>
             </CardBody>
