@@ -6,7 +6,7 @@ const CustomInput = ({ customInput, setCustomInput }) => {
       <textarea
         value={customInput}
         onChange={(e) => setCustomInput(e.target.value)}
-        className="flex-grow focus:outline-none w-full border-2 border-light-4 bg-light-3 mt-2 rounded-lg p-2 font-mono"
+        className="flex-grow focus:outline-none w-full border-2 border-light-4 bg-light-3 mt-2 rounded-lg p-2 font-mono resize-none"
       ></textarea>
     </>
   );

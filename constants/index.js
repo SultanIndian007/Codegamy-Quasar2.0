@@ -10,7 +10,7 @@ export const mockProblemsData = [{
     "inputFormat": "<li>First line will contain T, number of testcases. Then the testcases follow</li><li>The first line in each testcase contains an array of integers <code>nums</code> seperated by space</li><li>The next line contains one integer <code>target</code></li>",
     "outputFormat": "<li>One line with array of two integers</li>",
     "sampleOutput": "0 1<br/>1 2<br/>0 1",
-    "sampleInput": "3<br/>2 7 11 15<br/>9\n3 2 4<br/>6<br/>3 3<br/>6",
+    "sampleInput": "3<br/>2 7 11 15<br/>9<br/>3 2 4<br/>6<br/>3 3<br/>6",
     "constraints": "<li class='mt-2'><code>2 ≤ nums.length ≤ 10</code></li> <li class='mt-2'><code>-10 ≤ nums[i] ≤ 10</code></li> <li class='mt-2'><code>-10 ≤ target ≤ 10</code></li><li class='mt-2 text-sm'><strong>Only one valid answer exists.</strong></li>",
     "difficulty": "Easy",
     "category": "Array",

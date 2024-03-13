@@ -137,6 +137,9 @@ const Playground = ({ problems, isForSubmission = true, setSubmitted }) => {
         const ans = await handleCompile(testcases.input[i], true);
         if (ans.toLowerCase()!==testcases.output[i]) {
           allCorrect = false;
+          setOutputDetails({
+            submitted: true, accepted: false, output: ans
+          })
           break;
         }
       }
@@ -145,11 +148,7 @@ const Playground = ({ problems, isForSubmission = true, setSubmitted }) => {
           submitted: true, accepted: true
         });
         setSubmitted(true);
-        setTimeout(() => setSubmitted(false), 3000);
-      } else {
-        setOutputDetails({
-          submitted: true, accepted: false
-        })
+        setTimeout(() => setSubmitted(false), 5000);
       }
     } catch (error) {
       console.error(error);
