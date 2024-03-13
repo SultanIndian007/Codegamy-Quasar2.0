@@ -25,9 +25,12 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div>
-        <Link href='/profile'>
-          Profile
+      <div className='flex justify-between items-center gap-7'>
+        <Link href='/login'>
+          Login
+        </Link>
+        <Link href='/register'>
+          Register
         </Link>
       </div>
 
