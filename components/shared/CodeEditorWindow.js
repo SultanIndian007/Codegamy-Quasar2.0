@@ -7,14 +7,14 @@ import { java } from "@codemirror/lang-java";
 import { cpp } from "@codemirror/lang-cpp";
 import ReactCodeMirror from "@uiw/react-codemirror";
 
-const CodeEditorWindow = ({ onChange, language, code, theme, fontSize }) => {
+const CodeEditorWindow = ({ onChange, language, code, theme, fontSize, forProblemsPage=true }) => {
 
   const handleEditorChange = (value) => {
     onChange("code", value);
   };
 
   return (
-    <div className="flex flex-col !w-full justify-start items-end overlay rounded-md overflow-hidden shadow-4xl bg-dark-1 min-h-[20%]">
+    <div className={`flex flex-col !w-full justify-start items-end overlay rounded-md overflow-hidden shadow-4xl bg-dark-1 ${forProblemsPage? 'min-h-[20%]' : 'h-[500px]'}`}>
         <ReactCodeMirror
           value={code}
           onChange={handleEditorChange}

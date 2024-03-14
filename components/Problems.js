@@ -11,20 +11,11 @@ const Problems = () => {
 
     const router = useRouter();
     const problems = [...mockProblemsData];
-    const difficultyColors = [
-        {
-            type: 'Hard',
-            color: 'text-red-500',
-        },
-        {
-            type: 'Medium',
-            color: 'text-orange-500',
-        },
-        {
-            type: 'Easy',
-            color: 'text-green-500',
-        }
-    ];
+    const difficultyColors = {
+        'Hard' : 'bg-red-500' ,
+        'Medium': 'bg-orange-500' ,
+        'Easy': 'bg-green-500'
+    };
 
     return (
         <div>
@@ -69,12 +60,8 @@ const Problems = () => {
                                             {problem.order}. {problem.title}
                                         </div>
                                     </th>
-                                    <td className={`px-6 py-4 ${difficultyColors.map((difficultyTypes) => {
-                                        if (difficultyTypes.type === problem.difficulty) {
-                                            return " " + difficultyTypes.color + " ";
-                                        }
-                                    })}`}>
-                                        <div className='hover:cursor-pointer'>
+                                    <td>
+                                        <div className={`w-fit mx-auto px-3 py-1 rounded-full hover:cursor-pointer text-sm text-light-1 ${difficultyColors[problem?.difficulty]}`}>
                                             {problem.difficulty}
                                         </div>
                                     </td>

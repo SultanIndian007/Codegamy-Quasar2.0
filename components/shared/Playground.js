@@ -1,23 +1,20 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import LanguagesDropdown from "../shared/LanguagesDropdown";
-import ThemeDropdown from "../shared/ThemeDropdown";
-import CodeEditorWindow from "../shared/CodeEditorWindow";
-import OutputWindow from "../shared/OutputWindow";
-import CustomInput from "../shared/CustomInput";
-import Split from "react-split";
+import LanguagesDropdown from "./LanguagesDropdown";
+import ThemeDropdown from "./ThemeDropdown";
+import CodeEditorWindow from "./CodeEditorWindow";
+import OutputWindow from "./OutputWindow";
+import CustomInput from "./CustomInput";
 import { languagesData, mockComments } from "@/constants";
 import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
-import Timer from "../shared/Timer";
+import Timer from "./Timer";
 import axios from "axios";
 import Loader from "../shared/Loader";
-import { useParams } from "next/navigation";
-import FontSizeDropdown from "../shared/FontSizeDropdown";
+import FontSizeDropdown from "./FontSizeDropdown";
 
-const Playground = ({ problems, isForSubmission = true, setSubmitted }) => {
+const Playground = ({ problem, isForSubmission = true, setSubmitted }) => {
   
-  const params = useParams();
-  const [customInput, setCustomInput] = useState("");
+  const [customInput, setCustomInput] = useState(problem.testCase.input[0]);
   const [outputDetails, setOutputDetails] = useState(null);
   const [isCodeRunning, setIsCodeRunning] = useState(false);
   const [isCodeSubmitting, setIsCodeSubmitting] = useState(false);
@@ -26,19 +23,6 @@ const Playground = ({ problems, isForSubmission = true, setSubmitted }) => {
   const [code, setCode] = useState(mockComments[language.value]);
   const [fontSize, setFontSize] = useState({ value: '14', label: '14px' });
   const [isFullScreen, setIsFullScreen] = useState(false);
-  const [clickedProblem, setClickedProblem] = useState();
-
-  useEffect(() => {
-    if (problems) {
-        problems.forEach((problem, index) => {
-            if (problem.id === params.id) {
-                setClickedProblem(problem);
-                setCustomInput(problem.testCase.input[0]);
-            }
-        })
-    }
-
-}, [problems]);
 
   const handleFullScreen = () => {
     if (isFullScreen) {
@@ -112,7 +96,7 @@ const Playground = ({ problems, isForSubmission = true, setSubmitted }) => {
   const handleSubmit = async () => {
     setIsCodeSubmitting(true); 
     try {
-      const testcases = { ...clickedProblem.testCase };
+      const testcases = { ...problem.testCase };
       let allCorrect = true;
       for (let i=0; i<testcases.input.length; i++) {
         const ans = await handleCompile(testcases.input[i], true);
@@ -140,7 +124,7 @@ const Playground = ({ problems, isForSubmission = true, setSubmitted }) => {
 
   return (
     <div className="w-full flex flex-col">
-      <div className="flex px-4 gap-2 justify-between">
+      <div className="flex gap-2 justify-between">
         <div className="flex gap-2">
           <LanguagesDropdown onSelectChange={(lang) => {setLanguage(lang);setCode(mockComments[lang.value])}} />
           <ThemeDropdown handleThemeChange={(th) => setTheme(th)} />
@@ -160,17 +144,14 @@ const Playground = ({ problems, isForSubmission = true, setSubmitted }) => {
         </div>
       </div>
 
-      <Split
-        className="!w-full flex-grow flex flex-col items-start px-4 pt-4"
-        direction="vertical"
-        minSize={100}
-      >
+      <div className="!w-full flex-grow flex flex-col items-start pt-4">
         <CodeEditorWindow
           code={code}
           onChange={onChange}
           language={language.value}
           theme={theme.value}
           fontSize={fontSize.value}
+          forProblemsPage={false}
         />
 
         <div className="!w-full min-h-[30%] flex flex-col">
@@ -194,7 +175,7 @@ const Playground = ({ problems, isForSubmission = true, setSubmitted }) => {
           </div>
 
           <div className="flex gap-5 flex-grow">
-            <div className="!w-full flex flex-col">
+            <div className="!w-full flex flex-col h-[250px]">
               <h1 className="font-bold text-lg">Custom Input</h1>
               <CustomInput
                 customInput={customInput}
@@ -204,7 +185,7 @@ const Playground = ({ problems, isForSubmission = true, setSubmitted }) => {
             <OutputWindow outputDetails={outputDetails} />
           </div>
         </div>
-      </Split>
+      </div>
     </div>
   );
 };

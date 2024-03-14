@@ -13,23 +13,11 @@ const ProblemDesc = ({ problems }) => {
     const [like, setLike] = useState(false);
     const [disLike, setDisLike] = useState(false);
     const [favorite, setFavorite] = useState(false);
-    const [difficultyColors, setDifficultyColor] = useState([
-        {
-            type: 'Hard',
-            textColor: 'text-red-200',
-            bgColor: 'bg-red-500',
-        },
-        {
-            type: 'Medium',
-            textColor: 'text-orange-200',
-            bgColor: 'bg-orange-500',
-        },
-        {
-            type: 'Easy',
-            textColor: 'text-green-200',
-            bgColor: 'bg-green-500',
-        },
-    ]);
+    const difficultyColors = {
+        'Hard' : 'bg-red-500' ,
+        'Medium': 'bg-orange-500' ,
+        'Easy': 'bg-green-500'
+    };
 
     useEffect(() => {
         if (problems) {
@@ -68,13 +56,7 @@ const ProblemDesc = ({ problems }) => {
                 </h2>
                 {/* section 1 */}
                 <div className='flex items-center justify-start m-2'>
-                    <div className={`mx-4 px-4 py-1 w-15 rounded-full backdrop-blur-smtext-base
-                    ${difficultyColors.map((difficultyTypes) => {
-                        if (difficultyTypes.type === clickedProblems?.difficulty) {
-                            return " " + difficultyTypes.bgColor + " " + difficultyTypes.bgColor + " "
-                        }
-                    })}
-                     `} >
+                    <div className={`px-4 py-1 rounded-full text-sm text-light-1 ${difficultyColors[clickedProblems?.difficulty]}`} >
                         {clickedProblems?.difficulty}
                     </div>
                     {/*  Solved Section  */}
@@ -132,10 +114,10 @@ const ProblemDesc = ({ problems }) => {
                 <div className='mt-2 px-5 py-2'>
                     {clickedProblems?.constraints && (
                         <>
-                            <b>Constraints:</b><br />
-                            <strong>
-                                <div className='m-5' dangerouslySetInnerHTML={{ __html: clickedProblems?.constraints || '' }} />
-                            </strong>
+                            <p className='font-bold'>Constraints:</p>
+                            <div className='font-medium' 
+                                dangerouslySetInnerHTML={{ __html: clickedProblems?.constraints || '' }} 
+                            />
                         </>
                     )}
                 </div>
