@@ -1,7 +1,7 @@
 import clientPromise from "@/lib/mongoConnect";
 import {UserInfo} from "@/models/UserInfo";
 import bcrypt from "bcrypt";
-import dbConnect from '../../../../utils/dbConnect';
+import dbConnect from '@/utils/dbConnect';
 import {User} from '@/models/User';
 import NextAuth, {getServerSession} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";

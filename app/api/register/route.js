@@ -1,6 +1,6 @@
 import {User} from "@/models/User";
 import bcrypt from "bcrypt";
-import dbConnect from '../../../utils/dbConnect';
+import dbConnect from '@/utils/dbConnect';
 
 export async function POST(req) {
   const body = await req.json();
