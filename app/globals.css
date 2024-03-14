@@ -50,6 +50,10 @@
     background-color: #D9D9D9;
   }
 
+  strong {
+    font-weight: 500;
+  }
+
 }
 
 

@@ -11,7 +11,14 @@ const ModulesData = {
         title: "Variables and Data Types",
         desc: "Variables are containers for storing data values.",
         lessons: ["What are Variables?", "Data Types", "Type Modifiers", "Storage Classes"]
-    }],
+    },
+    {
+        id: 3,
+        title: "Loopings in C++",
+        desc: "Loops are used to execute a set of statements repeatedly until a particular condition is satisfied.",
+        lessons: ["What are Loops?", "For Loop", "While Loop", "Do-While Loop"]
+    }
+],
     "python": [
         {
             id: 1,
