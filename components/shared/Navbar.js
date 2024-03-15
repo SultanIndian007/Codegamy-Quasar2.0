@@ -25,6 +25,9 @@ const Navbar = () => {
           <Link href='/interviewquestions'>
             Interview Qns
           </Link>
+          <Link href='/news'>
+            News
+          </Link>
         </div>
       </div>
 
