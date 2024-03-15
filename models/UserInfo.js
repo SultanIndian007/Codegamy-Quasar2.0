@@ -1,20 +1,19 @@
 import {model, models, Schema} from "mongoose";
 
 const UserInfoSchema = new Schema({
-  email: { type: String, required: true, unique: true },
-  name: { type: String, required: true },
-  age: { type: Number, required: true },
+  name: { type: String },
+  age: { type: Number },
   gender: { type: String, enum: ['Male', 'Female'] },
   college: { type: String },
   city: {type: String},
   country: {type: String},
   phone: {type: String},
   admin: {type: Boolean, default: false},
-  coursesEnrolled: [{ type: Schema.Types.ObjectId, ref: 'Course' }],
-  solved: [{ type: Schema.Types.ObjectId, ref: 'SolvedProblem' }],
-  contestPart: [{ type: Schema.Types.ObjectId, ref: 'Contest' }],
-  peerVideo: [{ type: Schema.Types.ObjectId, ref: 'PeerVideo' }],
-  reviews: [{ type: Schema.Types.ObjectId, ref: 'PeerViedoReview' }],
+  coursesEnrolled: [{ type: Schema.Types.ObjectId, ref: 'Course',default: [] }],
+  solved: [{ type: Schema.Types.ObjectId, ref: 'SolvedProblem', default: [] }],
+  contestPart: [{ type: Schema.Types.ObjectId, ref: 'Contest', default: [] }],
+  peerVideo: [{ type: Schema.Types.ObjectId, ref: 'PeerVideo', default: [] }],
+  reviews: [{ type: Schema.Types.ObjectId, ref: 'PeerViedoReview', default: [] }],
 
 }, {timestamps: true});
 
