@@ -1,6 +1,7 @@
 import {model, models, Schema} from "mongoose";
 
 const UserInfoSchema = new Schema({
+  email: { type: String, required: true, unique: true },
   name: { type: String, required: true },
   age: { type: Number, required: true },
   gender: { type: String, enum: ['Male', 'Female'] },

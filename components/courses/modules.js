@@ -1,12 +1,11 @@
-const Modules = ({modules, setData, data}) => {
+import React from 'react'
+
+const Modules = ({modules, setData}) => {
 
     const handleModuleClick = (module) => {
-        data.map((content) => {
-            if(content.title === module) {
-                setData(content.content)
-            }
-        }
-        )
+        console.log(module);
+        const data = module;
+        setData(data);
     }
 
     return (
@@ -24,8 +23,8 @@ const Modules = ({modules, setData, data}) => {
                         {module.lessons.map((lesson, index) => (
                             <div key={index} className=" p-2 flex flex-row items-center gap-2 text-xs">
                                 <span className="min-w-[60px] font-semibold">Lesson {index + 1}</span>
-                                <span onClick={() => handleModuleClick(lesson)} className="flex-grow cursor-pointer text-blue-500 break-words">
-                                    {lesson}
+                                <span onClick={() => handleModuleClick(lesson.content)} className="flex-grow cursor-pointer text-blue-500 break-words">
+                                    {lesson.title}
                                 </span>
                             </div>
                         ))}

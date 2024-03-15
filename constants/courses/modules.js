@@ -92,6 +92,13 @@ const ModulesData = {
             lessons: ["What is C?", "Why Learn C?", "How to get started with C"]
     
         },
+        {
+            id: 2,
+            title: "Variables and Data Types",
+            desc: "Variables are containers for storing data values.",
+            lessons: ["What are Variables?", "What are Data Types?", "Type Modifiers", "Storage Classes"]
+            
+        }
         
     ]
 }
