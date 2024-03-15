@@ -16,7 +16,7 @@ const SolvedProblemSchema = Schema({
             required: true
         },
         complexity: {
-            type: String,
+            type: [String],
             required: true
         },
         submissionTime: {
@@ -34,10 +34,10 @@ const SolvedProblemSchema = Schema({
     star: {type: Boolean}
   });
 
-  Submission.virtual('score', {
-    get() {
-      return this.passedTestCases * 100 / this.problem.testCases.length - this.executionTime / 1000;
-    },
-  });
+  // Submission.virtual('score', {
+  //   get() {
+  //     return this.passedTestCases * 100 / this.problem.testCases.length - this.executionTime / 1000;
+  //   },
+  // });
   
 export const SolvedProblem = models?.SolvedProblem || model('SolvedProblem', SolvedProblemSchema);
