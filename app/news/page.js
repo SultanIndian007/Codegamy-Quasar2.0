@@ -5,7 +5,7 @@ import axios from 'axios';
 const NewsPage = () => {
   const [stories, setStories] = useState([]);
   const [selectedOption, setSelectedOption] = useState('top');
-  const [pageTitle, setPageTitle] = useState('Top News Articles'); // Track page title
+  const [pageTitle, setPageTitle] = useState('Top News Articles'); 
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -49,8 +49,8 @@ const NewsPage = () => {
 
   const handleOptionChange = (option) => {
     setSelectedOption(option);
-    setPageTitle(option === 'top' ? 'Top News Articles' : option === 'new' ? 'Newest Articles' : 'Job Listings'); // Update page title based on option
-    document.title = pageTitle; // Update browser tab title dynamically
+    setPageTitle(option === 'top' ? 'Top News Articles' : option === 'new' ? 'Newest Articles' : 'Job Listings'); 
+    document.title = pageTitle; 
   };
 
   return (
@@ -76,7 +76,7 @@ const NewsPage = () => {
             Jobs
           </button>
         </div>
-        <h1 className="text-2xl font-bold mb-4">{pageTitle}</h1> {/* Display dynamic title */}
+        <h1 className="text-2xl font-bold mb-4">{pageTitle}</h1> 
         <ol className="card-container flex flex-col gap-4">
           {stories.map((story, index) => (
             <li key={story.id} className="card flex items-center">
