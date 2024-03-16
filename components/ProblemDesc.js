@@ -3,7 +3,7 @@ import { useParams } from 'next/navigation'
 import { AiOutlineLike, AiFillLike, AiOutlineDislike, AiFillDislike } from "react-icons/ai";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { TiInputChecked } from "react-icons/ti";
-
+import TextSolutions from './TextSolutions';
 
 const ProblemDesc = ({ problems }) => {
 

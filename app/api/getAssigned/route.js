@@ -1,5 +1,9 @@
 import {User} from "@/models/User.js";
 import {UserInfo} from "@/models/UserInfo.js";
+import {Queue} from "@/models/Queue.js";
+import {peerVideo} from "@/models/PeerVideo.js";
+import {question} from "@/models/Question.js";
+
 import dbConnect from '@/utils/dbConnect';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../auth/[...nextauth]/route.js"
