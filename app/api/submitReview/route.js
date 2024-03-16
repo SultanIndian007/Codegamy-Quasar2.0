@@ -32,13 +32,13 @@ export async function POST(req) {
         console.log(userdata)
 
         await userdata.reviews.push(savedreview._id)
-        await userdata.assigned.pop(queueID)
+        await userdata.assigned.pull(queueID)
         await userdata.save();
 
         const peervideoitem = await peerVideo.findById(queueItem.peerVideo)
-        console.log(peervideoitem)
         await peervideoitem.reviews.push(savedreview._id)
         await peervideoitem.save();
+        return new Response('User Data Updated',{status: 201})
 
     }
 }
