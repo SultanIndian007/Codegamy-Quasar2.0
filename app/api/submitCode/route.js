@@ -73,7 +73,7 @@ export async function POST(req) {
                 const newSol = await newSolve.save()
                 userdata.solved.push(newSol.id)
                 userdata.save()
-                return new Response('Solution Saved',{status: 201})    
+                return new Response(JSON.stringify({isAccepted, output: data.output}),{status: 201})    
             }
             else{
                 return new Response('Testcase Failed', {status: 400})
