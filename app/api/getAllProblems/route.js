@@ -24,7 +24,7 @@ export async function GET() {
         const session = await getServerSession(authOptions);
         if (session?.user?._id){
           const problems = await Problem.find();
-          return new Response(problems,{status: 200})
+          return new Response(JSON.stringify(problems),{status: 200})
         }
       } catch (error) {
         console.error(error);

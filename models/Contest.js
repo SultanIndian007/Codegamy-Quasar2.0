@@ -10,6 +10,10 @@ const ContestSchema = Schema({
       type: String,
       required: true
     },
+    link: {
+        type: String,
+        required: true
+    },
     description: {
       type: String,
       required: true
@@ -26,6 +30,23 @@ const ContestSchema = Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Problem' 
     }],
+    ranklist: [
+        {
+            user: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'UserInfo'
+            },
+            score: {
+                type: Number,
+                default: 0
+            },
+            finish_time: {
+                type: Date,
+                default: Date.now
+            }
+        }
+    ]
+
 })
 
 export const Contest = models?.Contest || model('Contest', ContestSchema);

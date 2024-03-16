@@ -11,9 +11,7 @@ const OutputWindow = ({ outputDetails }) => {
             <p className="text-lg">
               Status:{" "}
               <span
-                className={`text-${
-                  outputDetails.accepted ? "green" : "red"
-                }-500`}
+                className={`${outputDetails.accepted ? "text-green-500" : "text-red-500"}`}
               >
                 {outputDetails.accepted ? "ACCEPTED" : "REJECTED"}
               </span>
