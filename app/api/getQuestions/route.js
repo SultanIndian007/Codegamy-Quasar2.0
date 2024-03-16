@@ -3,7 +3,7 @@ import dbConnect from '@/utils/dbConnect';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../auth/[...nextauth]/route.js"
 
-export async function POST(req) {
+export async function GET() {
     await dbConnect();
 
     try {
@@ -16,7 +16,7 @@ export async function POST(req) {
         return new Response(JSON.stringify(getRandQs), {status: 200})
 
       } 
-    }catch (error) {
+    }catch (error) {  
         console.error(error);
         return new Response(error,{status: 500})
       }
