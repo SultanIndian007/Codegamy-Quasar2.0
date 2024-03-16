@@ -10,7 +10,7 @@ export async function POST(req) {
       const session = await getServerSession(authOptions);
       if (session?.user?._id){
         const getRandQs = await Question.aggregate([
-          { $sample: { size: 5 } }
+          { $sample: { size: 1 } }
         ]);
 
         return new Response(JSON.stringify(getRandQs), {status: 200})
