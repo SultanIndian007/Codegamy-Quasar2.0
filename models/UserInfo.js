@@ -13,7 +13,7 @@ const UserInfoSchema = new Schema({
   solved: [{ type: Schema.Types.ObjectId, ref: 'SolvedProblem', default: [] }],
   contestPart: [{ type: Schema.Types.ObjectId, ref: 'Contest', default: [] , problemSolved: [ { type: Schema.Types.ObjectId, ref: 'SolvedProblem', default: [] }]}],
   peerVideo: [{ type: Schema.Types.ObjectId, ref: 'PeerVideo', default: [] }],
-  reviews: [{ type: Schema.Types.ObjectId, ref: 'PeerViedoReview', default: [] }],
+  reviews: [{ type: Schema.Types.ObjectId, ref: 'peerVideoReview', default: [] }],
   rating: {type: Number, default: 0},
   assigned: [{ type: Schema.Types.ObjectId, ref: 'Queue', default: [] }],
 
