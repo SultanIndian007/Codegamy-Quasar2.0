@@ -22,6 +22,9 @@ const Navbar = () => {
           <Link href='/learn'>
             Learn
           </Link>
+          <Link href='/news'>
+            News
+          </Link>
         </div>
       </div>
 

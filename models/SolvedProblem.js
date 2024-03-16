@@ -6,13 +6,17 @@ const SolvedProblemSchema = Schema({
       ref: 'Problem',
       required: true
     },
-    solutions: [{
+    contest : {
+        type: Schema.Types.ObjectId,
+        ref: 'Contest',  
+    },
+    solution: [{
         code: {
             type: String,
             required: true
         },
         complexity: {
-            type: String,
+            type: [String],
             required: true
         },
         submissionTime: {
@@ -23,9 +27,17 @@ const SolvedProblemSchema = Schema({
             type: String,
             enum: ['pending', 'accepted', 'rejected'],
             default: 'pending'
-        }
+        },
+        passedTestCases: {type: Number, required: true}
     }],
+    
     star: {type: Boolean}
   });
+
+  // Submission.virtual('score', {
+  //   get() {
+  //     return this.passedTestCases * 100 / this.problem.testCases.length - this.executionTime / 1000;
+  //   },
+  // });
   
 export const SolvedProblem = models?.SolvedProblem || model('SolvedProblem', SolvedProblemSchema);
