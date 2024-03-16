@@ -22,9 +22,9 @@ export async function GET() {
 
     try {
         const session = await getServerSession(authOptions);
-        if (session?.user?.id){
-        const problems = await Problem.find();
-        return new Response(problems,{status: 200})
+        if (session?.user?._id){
+          const problems = await Problem.find();
+          return new Response(problems,{status: 200})
         }
       } catch (error) {
         console.error(error);

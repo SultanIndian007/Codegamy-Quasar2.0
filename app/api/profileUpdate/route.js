@@ -5,14 +5,15 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "../auth/[...nextauth]/route.js"
 
 export async function POST(req) {
-    await dbConnect();
 
     try {
         const session = await getServerSession(authOptions);
-        const userID = session?.user?.id;
+        const userID = session?.user?._id;
         if (userID){
+            await dbConnect();
+            const body = await req.json()
             const user = await User.findById(userID)
-            const userinfo = await UserInfo.findByIdAndUpdate(user.userInfo,req )
+            const userinfo = await UserInfo.findByIdAndUpdate(user.userInfo,body )
             return new Response('User Data Updated',{status: 201})
         }
         else{
