@@ -61,14 +61,14 @@ const page = () => {
 
                     <div className='mt-4'>
                         <h2 className='font-bold'>Sample Input</h2>
-                        <div className='bg-light-4 font-mono mt-1 py-2 px-3 rounded-lg'>
+                        <div className='bg-light-3 font-mono mt-1 py-2 px-3 rounded-lg'>
                             <div dangerouslySetInnerHTML={{ __html: problem?.sampleInput || '' }} />
                         </div>
                     </div>
 
                     <div className='mt-4'>
                         <h2 className='font-bold'>Sample Output</h2>
-                        <div className='bg-light-4 font-mono mt-1 py-2 px-3 rounded-lg'>
+                        <div className='bg-light-3 font-mono mt-1 py-2 px-3 rounded-lg'>
                             <div dangerouslySetInnerHTML={{ __html: problem?.sampleOutput || '' }} />
                         </div>
                     </div>

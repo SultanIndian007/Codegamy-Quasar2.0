@@ -101,13 +101,13 @@ const ProblemDesc = ({ problems }) => {
                 </div>
                 <div className='mt-4 px-5'>
                     <h2 className='font-bold'>Sample Input</h2>
-                    <div className='bg-light-4 font-mono mt-1 py-2 px-3 rounded-lg'>
+                    <div className='bg-light-3 font-mono mt-1 py-2 px-3 rounded-lg'>
                         <div dangerouslySetInnerHTML={{ __html: clickedProblems?.sampleInput || '' }} />
                     </div>
                 </div>
                 <div className='mt-4 px-5'>
                     <h2 className='font-bold'>Sample Output</h2>
-                    <div className='bg-light-4 font-mono mt-1 py-2 px-3 rounded-lg'>
+                    <div className='bg-light-3 font-mono mt-1 py-2 px-3 rounded-lg'>
                         <div dangerouslySetInnerHTML={{ __html: clickedProblems?.sampleOutput || '' }} />
                     </div>
                 </div>
