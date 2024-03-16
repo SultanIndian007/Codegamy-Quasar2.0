@@ -10,9 +10,6 @@ export default function LoginPage() {
     ev.preventDefault();
     setLoginInProgress(true);
 
-    // Your authentication logic using NextAuth.js
-    // Replace with your actual implementation
-
     setLoginInProgress(false);
   }
 
@@ -30,7 +27,7 @@ export default function LoginPage() {
           <input
             type="email"
             id="email"
-            name="email" // Added name attribute for proper form submission
+            name="email" 
             placeholder="email"
             value={email}
             disabled={loginInProgress}
@@ -48,7 +45,7 @@ export default function LoginPage() {
           <input
             type="password"
             id="password"
-            name="password" // Added name attribute for proper form submission
+            name="password" 
             placeholder="password"
             value={password}
             disabled={loginInProgress}
