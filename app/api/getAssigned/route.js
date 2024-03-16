@@ -1,5 +1,9 @@
 import {User} from "@/models/User.js";
 import {UserInfo} from "@/models/UserInfo.js";
+import {Queue} from "@/models/Queue.js";
+import {peerVideo} from "@/models/PeerVideo.js";
+import {question} from "@/models/Question.js";
+
 import dbConnect from '@/utils/dbConnect';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../auth/[...nextauth]/route.js"
@@ -12,9 +16,7 @@ export async function GET() {
         const session = await getServerSession(authOptions);
         const userID = session?.user?._id
         if (session?.user?._id){
-            console.log("test")
             const user = await User.findById(userID)
-            console.log(user)
             const userdata = await UserInfo.findById(user.userInfo).populate({
                 path : 'assigned',
                 populate : {
@@ -25,8 +27,7 @@ export async function GET() {
                 }
               })
             
-
-          return new Response(userdata.assigned,{status: 200})
+          return new Response(JSON.stringify(userdata.assigned),{status: 200})
         }
       } catch (error) {
         console.error(error);
