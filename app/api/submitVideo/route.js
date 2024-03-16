@@ -6,6 +6,7 @@ import {UserInfo} from "@/models/UserInfo.js";
 import dbConnect from '@/utils/dbConnect';
 
 import {PeerViedo} from "@/models/PeerVideo.js";
+import {Question} from "@/models/Question.js";
 import {PeerViedoReview} from "@/models/PeerVideoReview.js";
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../auth/[...nextauth]/route.js"
@@ -17,7 +18,7 @@ export async function POST(request) {
     const userID = session?.user?._id;
     if (userID){
         const formData = await request.formData()
-        const questionID = formData.get('questionid')
+        const questionID = formData.get('id')
         const file = formData.get('video')
         if (!file) {
             return Response.json({ error: "No files received." }, { status: 400 });
@@ -31,16 +32,17 @@ export async function POST(request) {
             );
             const user = await User.findById(userID)
             const userdata = await UserInfo.findById(user.userInfo)
+            const question = await Question.findOne({id: questionID})
             const newPeerVideo = new PeerViedo(
                 {
-                        // question: questionID,
+                    question: question._id,
                     videoUrl:  filename,
                 }
             )
             const temp = await newPeerVideo.save()
             userdata.peerVideo.push(temp.id)
             userdata.save()
-            
+
 
             
             return Response.json({ Message: "Success, Video Saved", status: 201 });
