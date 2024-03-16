@@ -2,7 +2,6 @@ import {model, models, Schema} from "mongoose";
 
 const PeerViedoSchema = Schema({
     question: { type: Schema.Types.ObjectId, ref: 'Question' }, // Reference the PeerViedo question
-    student: { type: Schema.Types.ObjectId, ref: 'User' }, 
     videoUrl: { type: String, required: true },
     submissionTime: { type: Date, default: Date.now },
     reviews: [{ type: Schema.Types.ObjectId, ref: 'PeerViedoReview' }],
