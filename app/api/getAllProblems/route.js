@@ -1,5 +1,7 @@
 import {Problem} from "@/models/Problem";
 import dbConnect from '@/utils/dbConnect';
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "../auth/[...nextauth]/route.js"
 
 // export async function POST(req) {
 //     await dbConnect();
@@ -19,8 +21,11 @@ export async function GET() {
     await dbConnect();
 
     try {
+        const session = await getServerSession(authOptions);
+        if (session?.user?.id){
         const problems = await Problem.find();
-        return new Response(problems,{status: 201})
+        return new Response(problems,{status: 200})
+        }
       } catch (error) {
         console.error(error);
         return new Response(error,{status: 500}) // Handle any errors
