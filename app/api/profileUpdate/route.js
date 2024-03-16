@@ -13,11 +13,11 @@ export async function POST(req) {
             await dbConnect();
             const body = await req.json()
             const user = await User.findById(userID)
-            const userinfo = await UserInfo.findByIdAndUpdate(user.userInfo,body )
+            await UserInfo.findByIdAndUpdate(user.userInfo,body )
             return new Response('User Data Updated',{status: 201})
         }
         else{
-            return new Response('User Not Found',{status: 500})
+            return new Response('User Not Found',{status: 401})
         }
         
       } catch (error) {
