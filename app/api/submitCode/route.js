@@ -47,31 +47,35 @@ export async function POST(req) {
 
         }
         const newSolution = {
+            contest: contest !== null ? contest : undefined,
             code: code,
             complexity: [data.cpuTime, data.memory],
             status: isAccepted,
             passedTestCases: tcPass
         };
-
         if (existingSolvedProblem){
             existingSolvedProblem.solution.push(newSolution);
             existingSolvedProblem.save();      
             return new Response('Solution Saved in Existing Problems',{status: 201})      
         }
         else{
-
-            const newSolve = new SolvedProblem(
-                {
-                    contest: contest !== null ? contest : undefined,
-                    problem: prob._id,
-                    solution: [newSolution]
-                    
-                }
-            )
-            const newSol = await newSolve.save()
-            userdata.solved.push(newSol.id)
-            userdata.save()
-            return new Response('Solution Saved',{status: 201})
+            if ((isAccepted && contest) || !contest){
+                const newSolve = new SolvedProblem(
+                    {
+                        contest: contest !== null ? contest : undefined,
+                        problem: prob._id,
+                        solution: [newSolution]
+                        
+                    }
+                )
+                const newSol = await newSolve.save()
+                userdata.solved.push(newSol.id)
+                userdata.save()
+                return new Response('Solution Saved',{status: 201})    
+            }
+            else{
+                return new Response('Testcase Failed', {status: 400})
+            }
         }
         
     }
