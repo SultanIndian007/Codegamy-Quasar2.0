@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import { AiOutlineSolution } from "react-icons/ai";
 import { ImYoutube2 } from "react-icons/im";
 import { ImCheckboxChecked } from "react-icons/im";
@@ -10,7 +10,19 @@ import { mockProblemsData } from '@/constants';
 const Problems = () => {
 
     const router = useRouter();
-    const problems = [...mockProblemsData];
+    // const problems = [...mockProblemsData];
+    const [problems, setProblems] = useState([]);
+    
+    useEffect(() => {
+        const fetchProblems = async () => {
+            const response = await fetch('/api/getAllProblems');
+            const data = await response.json();
+            setProblems(data);
+        }
+        fetchProblems();
+    }, []);
+
+
     const difficultyColors = {
         'Hard' : 'bg-red-500' ,
         'Medium': 'bg-orange-500' ,

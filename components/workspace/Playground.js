@@ -33,8 +33,8 @@ const Playground = ({ problems, isForSubmission = true, setSubmitted }) => {
         problems.forEach((problem, index) => {
             if (problem.id === params.id) {
                 setClickedProblem(problem);
-                setCustomInput(problem.testCase.input[0]);
-            }
+                setCustomInput(problem.testCases[0].input[0]);
+        }
         })
     }
 

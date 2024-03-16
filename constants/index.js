@@ -238,8 +238,34 @@ export const mockProblemsData = [{
     "testCase": {
       "output": ["1\n2\n1 2\n3\n1 3\n2 3\n1 2 3\n0\n"],
       "input": ["2\n1 2 3\n0"],
-    }
-  }];
+    },
+  },
+    {
+    "_id": {
+      "$oid": "6581aa6bdb0ee3b9bc352d47"
+    },
+    "id": "rotate-image",
+    "title": "Rotate Image",
+    "problemStatement": "<p class='mt-3'>You are given an <code>n x n</code> 2D matrix representing an image, rotate the image by 90 degrees (clockwise).<br>You have to rotate the image <b>in-place</b>, which means you have to modify the input 2D matrix directly. <b>DO NOT</b> allocate another 2D matrix and do the rotation.</p>",
+    "inputFormat": "<li>First line will contain T, number of testcases. Then the testcases follow</li><li>The first line in each testcase contains an array of integers <code>matrix</code> seperated by space</li>",
+    "outputFormat": "<li>Print the rotated matrix</li>",
+    "sampleOutput": "7 4 1<br/>8 5 2<br/>9 6 3",
+    "sampleInput": "1<br/>1 2 3<br/>4 5 6<br/>7 8 9",
+    "constraints": "<li class='mt-2'><code>matrix.length == n</code></li><li class='mt-2'><code>matrix[i].length == n</code></li><li class='mt-2'><code>1 <= n <= 20</code></li><li class='mt-2'><code>-1000 <= matrix[i][j] <= 1000</code></li>",
+    "difficulty": "Medium",
+    "category": "Array",
+    "order": 11,
+    "videoId": "",
+    "starterCode": "import ast\nimport sys\n\n\ndef rotate(matrix):\n  ''' Write Your Logic '''\n\nif __name__ == \"__main__\":\n  if len(sys.argv) > 1:\n    nums = [ ast.literal_eval(arg) for arg in sys.argv[1:]]\n    for i in nums:\n      result = rotate(i)\n      print(result)\n            \n  else:\n    matrix = [\n              [1, 2, 3],\n              [4, 5, 6],\n              [7, 8, 9]\n            ]\n    result = rotate(matrix)\n    print(result)\n        ",
+    "value": "",
+    "label": "import ast\nimport sys\n\n\ndef rotate(matrix):\n  ''' Write Your Logic '''\n\nif __name__ == \"__main__\":\n  if len(sys.argv) > 1:\n    nums = [ ast.literal_eval(arg) for arg in sys.argv[1:]]\n    for i in nums:\n      result = rotate(i)\n      print(result)\n            \n  else:\n    matrix = [\n              [1, 2, 3],\n              [4, 5, 6],\n              [7, 8, 9]\n            ]\n    result = rotate(matrix)\n    print(result)\n        ",
+    "testCase": {
+      "output": ["7 4 1\n8 5 2\n9 6 3\n"],
+      "input": ["1\n1 2 3\n4 5 6\n7 8 9"],
+    },
+    "score": 10,
+  },
+  ];
 
 export const languagesData = [
   {
