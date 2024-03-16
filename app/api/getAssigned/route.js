@@ -26,8 +26,14 @@ export async function GET() {
                   }
                 }
               })
+            const res = {
+                assigned: userdata.assigned,
+                assignedTime: userdata.assignedTime
+
+            }
             
-          return new Response(JSON.stringify(userdata.assigned),{status: 200})
+
+          return new Response(JSON.stringify(res),{status: 200})
         }
       } catch (error) {
         console.error(error);

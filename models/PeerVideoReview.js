@@ -6,7 +6,6 @@ const peerVideoReviewSchema = Schema({
     rating: { type: Number }, 
     comment: { type: String}, 
     reviewTime: { type: Date },
-    assignedTime: {type: Date,default: Date.now },
     feedback: Number
 });
 

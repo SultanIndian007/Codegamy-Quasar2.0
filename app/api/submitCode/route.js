@@ -12,7 +12,6 @@ export async function POST(req) {
     const session = await getServerSession(authOptions);
     const userID = session?.user?._id;
     if (userID){
-        await dbConnect();
 
         const {code,problem,language,contest} = await req.json()
         // console.log(code,problem,language,contest)

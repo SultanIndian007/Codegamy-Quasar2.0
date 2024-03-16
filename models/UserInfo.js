@@ -15,7 +15,8 @@ const UserInfoSchema = new Schema({
   peerVideo: [{ type: Schema.Types.ObjectId, ref: 'PeerVideo', default: [] }],
   reviews: [{ type: Schema.Types.ObjectId, ref: 'peerVideoReview', default: [] }],
   rating: {type: Number, default: 0},
-  assigned: [{ type: Schema.Types.ObjectId, ref: 'Queue', default: [] }],
+  assigned: [{ type: Schema.Types.ObjectId, ref: 'Queue', default: [],  }],
+  assignedTime: [{ type: Date,  default: [],  }],
 
 
 }, {timestamps: true});
