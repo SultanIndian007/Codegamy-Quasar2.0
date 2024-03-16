@@ -12,7 +12,7 @@ const UserInfoSchema = new Schema({
   coursesEnrolled: [{ type: Schema.Types.ObjectId, ref: 'Course',default: [] }],
   solved: [{ type: Schema.Types.ObjectId, ref: 'SolvedProblem', default: [] }],
   contestPart: [{ type: Schema.Types.ObjectId, ref: 'Contest', default: [] , problemSolved: [ { type: Schema.Types.ObjectId, ref: 'SolvedProblem', default: [] }]}],
-  peerVideo: [{ type: Schema.Types.ObjectId, ref: 'PeerVideo', default: [] }],
+  peerVideo: [{ type: Schema.Types.ObjectId, ref: 'peerVideo', default: [] }],
   reviews: [{ type: Schema.Types.ObjectId, ref: 'peerVideoReview', default: [] }],
   rating: {type: Number, default: 0},
   assigned: [{ type: Schema.Types.ObjectId, ref: 'Queue', default: [],  }],

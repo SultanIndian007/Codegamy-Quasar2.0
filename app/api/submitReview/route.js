@@ -1,5 +1,4 @@
 import dbConnect from '@/utils/dbConnect';
-import {Problem} from "@/models/Problem";
 import {User} from "@/models/User";
 import {UserInfo} from "@/models/UserInfo.js";
 import {Queue} from "@/models/Queue.js";
