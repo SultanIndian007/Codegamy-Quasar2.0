@@ -11,9 +11,10 @@ const UserInfoSchema = new Schema({
   admin: {type: Boolean, default: false},
   coursesEnrolled: [{ type: Schema.Types.ObjectId, ref: 'Course',default: [] }],
   solved: [{ type: Schema.Types.ObjectId, ref: 'SolvedProblem', default: [] }],
-  contestPart: [{ type: Schema.Types.ObjectId, ref: 'Contest', default: [] }],
+  contestPart: [{ type: Schema.Types.ObjectId, ref: 'Contest', default: [] , problemSolved: [ { type: Schema.Types.ObjectId, ref: 'SolvedProblem', default: [] }]}],
   peerVideo: [{ type: Schema.Types.ObjectId, ref: 'PeerVideo', default: [] }],
   reviews: [{ type: Schema.Types.ObjectId, ref: 'PeerViedoReview', default: [] }],
+  rating: {type: Number, default: 0},
 
 }, {timestamps: true});
 
