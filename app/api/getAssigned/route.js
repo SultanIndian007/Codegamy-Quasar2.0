@@ -12,9 +12,7 @@ export async function GET() {
         const session = await getServerSession(authOptions);
         const userID = session?.user?._id
         if (session?.user?._id){
-            console.log("test")
             const user = await User.findById(userID)
-            console.log(user)
             const userdata = await UserInfo.findById(user.userInfo).populate({
                 path : 'assigned',
                 populate : {
@@ -24,9 +22,14 @@ export async function GET() {
                   }
                 }
               })
+            const res = {
+                assigned: userdata.assigned,
+                assignedTime: userdata.assignedTime
+
+            }
             
 
-          return new Response(userdata.assigned,{status: 200})
+          return new Response(JSON.stringify(res),{status: 200})
         }
       } catch (error) {
         console.error(error);

@@ -45,6 +45,7 @@ async function QueueCheck(peerVideo, user){
                     const userinfo = await UserInfo.findById(filteredQueue[j].user.userInfo);
                     console.log(filteredQueue[j])
                     await userinfo.assigned.push(filteredQueue[i]._id);
+                    await userinfo.assignedTime.push(Date.now())
                     await userinfo.save();
                     await filteredQueue[i].assigned.push(filteredQueue[j]._id);
                     await filteredQueue[i].save();
