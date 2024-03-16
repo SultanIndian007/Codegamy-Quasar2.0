@@ -13,7 +13,9 @@ export async function POST(req) {
     const userID = session?.user?._id;
     if (userID){
         await dbConnect();
+
         const {code,problem,language,contest} = await req.json()
+        // console.log(code,problem,language,contest)
         const user = await User.findById(userID)
         const userdata = await UserInfo.findById(user.userInfo).populate('solved')
         const prob = await Problem.findOne({id: problem})
@@ -47,31 +49,35 @@ export async function POST(req) {
 
         }
         const newSolution = {
+            contest: contest !== null ? contest : undefined,
             code: code,
             complexity: [data.cpuTime, data.memory],
             status: isAccepted,
             passedTestCases: tcPass
         };
-
         if (existingSolvedProblem){
             existingSolvedProblem.solution.push(newSolution);
             existingSolvedProblem.save();      
-            return new Response('Solution Saved in Existing Problems',{status: 201})      
+            return new Response(JSON.stringify({isAccepted, output: data.output}),{status: 201})      
         }
         else{
-
-            const newSolve = new SolvedProblem(
-                {
-                    contest: contest !== null ? contest : undefined,
-                    problem: prob._id,
-                    solution: [newSolution]
-                    
-                }
-            )
-            const newSol = await newSolve.save()
-            userdata.solved.push(newSol.id)
-            userdata.save()
-            return new Response('Solution Saved',{status: 201})
+            if ((isAccepted && contest) || !contest){
+                const newSolve = new SolvedProblem(
+                    {
+                        contest: contest !== null ? contest : undefined,
+                        problem: prob._id,
+                        solution: [newSolution]
+                        
+                    }
+                )
+                const newSol = await newSolve.save()
+                userdata.solved.push(newSol.id)
+                userdata.save()
+                return new Response(JSON.stringify({isAccepted, output: data.output}),{status: 201})    
+            }
+            else{
+                return new Response('Testcase Failed', {status: 400})
+            }
         }
         
     }

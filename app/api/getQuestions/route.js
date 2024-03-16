@@ -1,0 +1,22 @@
+import {Question} from "@/models/Question";
+import dbConnect from '@/utils/dbConnect';
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "../auth/[...nextauth]/route.js"
+
+export async function POST(req) {
+    await dbConnect();
+
+    try {
+      const session = await getServerSession(authOptions);
+      if (session?.user?._id){
+        const getRandQs = await Question.aggregate([
+          { $sample: { size: numDocuments } }
+        ]);
+        return new Response(getRandQs, {status: 200})
+
+      } 
+    }catch (error) {
+        console.error(error);
+        return new Response(error,{status: 500})
+      }
+}

@@ -26,13 +26,13 @@ const Playground = ({ problems, isForSubmission = true, setSubmitted }) => {
   const [code, setCode] = useState(mockComments[language.value]);
   const [fontSize, setFontSize] = useState({ value: '14', label: '14px' });
   const [isFullScreen, setIsFullScreen] = useState(false);
-  const [clickedProblem, setClickedProblem] = useState();
+  const [clickedProblemId, setClickedProblemId] = useState(null);
 
   useEffect(() => {
     if (problems) {
         problems.forEach((problem, index) => {
             if (problem.id === params.id) {
-                setClickedProblem(problem);
+              setClickedProblemId(problem.id);
                 setCustomInput(problem.testCases[0].input[0]);
         }
         })
@@ -111,32 +111,25 @@ const Playground = ({ problems, isForSubmission = true, setSubmitted }) => {
 
   const handleSubmit = async () => {
     setIsCodeSubmitting(true); 
-    try {
-      const testcases = { ...clickedProblem.testCase };
-      let allCorrect = true;
-      for (let i=0; i<testcases.input.length; i++) {
-        const ans = await handleCompile(testcases.input[i], true);
-        if (ans!==testcases.output[i]) {
-          allCorrect = false;
-          setOutputDetails({
-            submitted: true, accepted: false, output: ans
-          })
-          break;
-        }
-      }
-      if (allCorrect) {
-        setOutputDetails({
-          submitted: true, accepted: true
-        });
-        setSubmitted(true);
-        setTimeout(() => setSubmitted(false), 5000);
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
+    const res = await fetch("/api/submitCode", {
+      method: "POST",
+      body: JSON.stringify({ code, problem: clickedProblemId, language: language.value }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+
+    if (data.isAccepted == "accepted") {
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 5000);
+      setOutputDetails({ output: "Accepted", submitted: true, accepted: true });
+      setIsCodeSubmitting(false); 
+    } else {
+      setOutputDetails({ output: data.output, submitted: true, accepted: false });
       setIsCodeSubmitting(false);
     }
-  };
+  }
 
   return (
     <div className="w-full flex flex-col">
