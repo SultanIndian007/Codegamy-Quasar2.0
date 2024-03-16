@@ -41,4 +41,5 @@ export async function POST(req) {
         return new Response('User Data Updated',{status: 201})
 
     }
+    else return new Response('Error',{status: 500})
 }
