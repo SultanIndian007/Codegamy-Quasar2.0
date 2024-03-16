@@ -5,17 +5,25 @@ import {User} from "@/models/User";
 import {UserInfo} from "@/models/UserInfo.js";
 import dbConnect from '@/utils/dbConnect';
 import {Queue} from "@/models/Queue.js";
-import { peerVideoReview } from "@/models/PeerVideoReview.js";
 import {peerVideo} from "@/models/PeerVideo.js";
 import {Question} from "@/models/Question.js";
 import {peerVideoReview} from "@/models/PeerVideoReview.js";
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../auth/[...nextauth]/route.js"
 
-async function Queue(peerVideo, user){
-    const queue = await Queue.find({assigned:{$size: 0}})
+async function QueueCheck(peerVideo, user){
+    const oguserdata = await UserInfo.findById(user.userInfo)
+
+    const newQueue = new Queue({
+        user: user._id,
+        peerVideo: peerVideo._id,
+        userRating: oguserdata.rating
+    });
+    await newQueue.save();
+
+    const queue = await Queue.find({assigned:{$size: 0}}).populate('user')
     const bands = [0, 20, 30, 40,50, 60, 70,80,90, 100];
-    const queueSize = [5,5,5,5,2,2,4,3,2,2];
+    const queueSize = [5,5,5,2,2,2,2,2,2,2];
 
     function findQueueSize(score) {
         for (let i = 0; i < bands.length; i++) {
@@ -25,17 +33,17 @@ async function Queue(peerVideo, user){
         }
         return queueSize[queueSize.length - 1];
     }
+    
     const filteredQueue = queue.filter((video) => { 
-        return video.UserRating >= Math.floor(user.rating / 10) * 10 && video.UserRating < Math.ceil(user.rating / 10) * 10 + 10;
+        return video.userRating >= (Math.floor(oguserdata.rating / 10) * 10) && video.userRating <= Math.ceil(oguserdata.rating / 10) * 10;
     });
 
-
-    if (filteredQueue.length >= findQueueSize(user.rating)) {
-        filteredQueue.push({user: user._id, peerVideo: peerVideo._id});
+    if (filteredQueue.length >= findQueueSize(oguserdata.rating)) {
         for (let i = 0; i < filteredQueue.length; i++) {
             for (let j = 0; j < filteredQueue.length; j++) {
                 if (filteredQueue[i].user._id !== filteredQueue[j].user._id) {
-                    const userinfo = await UserInfo.findById(filteredQueue[j].user._id);
+                    const userinfo = await UserInfo.findById(filteredQueue[j].user.userInfo);
+                    console.log(filteredQueue[j])
                     await userinfo.assigned.push(filteredQueue[i]._id);
                     await userinfo.save();
                     await filteredQueue[i].assigned.push(filteredQueue[j]._id);
@@ -45,14 +53,7 @@ async function Queue(peerVideo, user){
         }
         
     }
-    else{
-        const newQueue = new Queue({
-            user: user._id,
-            peerVideo: peerVideo._id,
-            UserRating: user.rating
-        });
-        await newQueue.save();
-    }
+
 }
 
 export async function POST(request) {
@@ -85,7 +86,7 @@ export async function POST(request) {
             const temp = await newPeerVideo.save()
             userdata.peerVideo.push(temp.id)
             userdata.save()
-            await Queue(temp, user)
+            await QueueCheck(temp, user)
             
             return Response.json({ Message: "Success, Video Saved", status: 201 });
         } catch (error) {
