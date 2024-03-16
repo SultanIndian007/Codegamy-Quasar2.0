@@ -1,5 +1,6 @@
 
 'use client'
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Chart from "chart.js/auto";
@@ -161,6 +162,9 @@ export default function ProfileSection() {
               </div>
             ))}
           </div>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6">
+            <Link href="/edit">Edit Profile</Link>
+            </button>
         </div>
       </div>
       <div className="w-2/3 pl-6">
@@ -296,7 +300,6 @@ export default function ProfileSection() {
             <div className="text-gray-800">{userInfo.country}</div>
           </div>
         </div>
-        
           </div>
         </div>
       </div>
