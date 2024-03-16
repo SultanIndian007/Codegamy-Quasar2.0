@@ -13,7 +13,9 @@ export async function POST(req) {
     const userID = session?.user?._id;
     if (userID){
         await dbConnect();
+
         const {code,problem,language,contest} = await req.json()
+        // console.log(code,problem,language,contest)
         const user = await User.findById(userID)
         const userdata = await UserInfo.findById(user.userInfo).populate('solved')
         const prob = await Problem.findOne({id: problem})
@@ -56,7 +58,7 @@ export async function POST(req) {
         if (existingSolvedProblem){
             existingSolvedProblem.solution.push(newSolution);
             existingSolvedProblem.save();      
-            return new Response('Solution Saved in Existing Problems',{status: 201})      
+            return new Response(JSON.stringify({isAccepted, output: data.output}),{status: 201})      
         }
         else{
 
@@ -70,8 +72,8 @@ export async function POST(req) {
             )
             const newSol = await newSolve.save()
             userdata.solved.push(newSol.id)
-            userdata.save()
-            return new Response('Solution Saved',{status: 201})
+            userdata.save();
+            return new Response(JSON.stringify({isAccepted, output: data.output}),{status: 201})
         }
         
     }
