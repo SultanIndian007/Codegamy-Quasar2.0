@@ -156,6 +156,14 @@ export default function ProfileSection() {
             <div className="w-24 mr-2 font-medium">Country:</div>
             <div className="text-gray-800">{data.country}</div>
           </div>
+          <div className="flex items-center mb-2">
+            <div className="w-24 mr-2 font-medium">Rating:</div>
+            <div className="text-gray-800">{data.rating}</div>
+          </div>
+          <div className="flex items-center mb-2">
+            <div className="w-24 mr-2 font-medium">Amount:</div>
+            <div className="text-gray-800">{data.amount}</div>
+          </div>
           <Link href="/edit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center">
             Edit Profile
           </Link>
