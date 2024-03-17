@@ -17,15 +17,23 @@ export async function GET() {
         const user = await User.findById(userID)
         const userdata = await UserInfo.findById(user.userInfo).populate({
             path : 'peerVideo',
-            populate : {
-              path : 'question'
-            }
+            populate : 
+              ['question','reviews']
+            
           })
         
-        if (userdata?.peerVideo?.reviews?.length<2){
-            userdata.peerVideo.reviews = []
-        }
-        return new Response(JSON.stringify(userdata.peerVideo),{status: 200})
+        const temp = userdata.peerVideo
+        const data = temp.filter((data) => { 
+          if (data.reviews.length >= 2) {
+              return true; 
+          } else {
+              data.reviews = [];
+              return true; 
+          }
+
+        });
+
+        return new Response(JSON.stringify(data),{status: 200})
     }
     else  return new Response("Error",{status: 500})
 
