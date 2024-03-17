@@ -28,6 +28,9 @@ const Navbar = () => {
           <Link href='/news'>
             News
           </Link>
+          {/* <Link href='/code'>
+            Code
+          </Link> */}
         </div>
       </div>
 
