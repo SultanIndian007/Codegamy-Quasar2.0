@@ -15,9 +15,7 @@ export async function POST(req) {
     const userID = session?.user?._id;
     if (userID){
         const {queueID,rating,comment} = await req.json()
-        console.log(queueID )
         const queueItem = await Queue.findById(queueID)
-        console.log(queueItem)
         const review = new peerVideoReview(
             {
                 reviewer: userID,
@@ -30,7 +28,6 @@ export async function POST(req) {
         const savedreview = await review.save()
         const user = await User.findById(userID)
         const userdata = await UserInfo.findById(user.userInfo)
-        console.log(userdata)
 
         await userdata.reviews.push(savedreview._id)
         await userdata.assigned.pull(queueID)

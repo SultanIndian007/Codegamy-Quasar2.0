@@ -12,7 +12,6 @@ export async function GET() {
       if (session?.user?._id){
         const user = await User.findById(session?.user?._id)
         const data = await UserInfo.findById(user.userInfo )
-        console.log("User Data:", data);
         return new Response(JSON.stringify(data), {status: 200})
       } 
     }catch (error) {  
