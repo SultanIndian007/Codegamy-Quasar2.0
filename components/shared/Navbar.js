@@ -16,7 +16,7 @@ const Navbar = async () => {
             CODEGAMY
           </h2>
         </Link>
-
+        
           <div className='flex gap-3'>
             <Link href='/learn'>
               Learn
