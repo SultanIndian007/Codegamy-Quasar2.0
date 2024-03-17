@@ -28,9 +28,9 @@ const Navbar = () => {
           <Link href='/news'>
             News
           </Link>
-          {/* <Link href='/code'>
+          <Link href='/code'>
             Code
-          </Link> */}
+          </Link>
         </div>
       </div>
 

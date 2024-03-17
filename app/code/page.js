@@ -1,9 +1,11 @@
 // App.js
+'use client'
 import React from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router-dom';
 import JoinRoom from './JoinRoom';
 import Room from './Room';
 import SocketWrapper from './SocketWraper';
+import Link from 'next/link';
 import ErrorBoundary from './ErrorBounday'; // Import ErrorBoundary component
 
 const router = createBrowserRouter([
@@ -12,7 +14,7 @@ const router = createBrowserRouter([
     element: <JoinRoom />,
   },
   {
-    path: '/code/room/:roomId',
+    path: '/room/:roomId',
     element: <SocketWrapper><Room /></SocketWrapper>,
   },
 ]);
@@ -20,7 +22,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     // <ErrorBoundary> {/* Wrap the RouterProvider with ErrorBoundary */}
-      <RouterProvider router={router} />
+        <RouterProvider router={router} />
     // </ErrorBoundary>
   );
 }
