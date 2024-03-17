@@ -31,7 +31,6 @@ export default function Room({ socket }) {
   const [fetchedCode, setFetchedCode] = useState(() => "")
   const [language, setLanguage] = useState(() => "javascript")
   const [codeKeybinding, setCodeKeybinding] = useState(() => undefined)
-  const [username, setUsername] = useState(() => "")
 
   const languagesAvailable = ["javascript", "java", "c_cpp", "python", "typescript", "golang", "yaml", "html"]
   const codeKeybindingsAvailable = ["default", "emacs", "vim"]
@@ -68,7 +67,6 @@ export default function Room({ socket }) {
 
   useEffect(() => {
     socket.on("updating client list", ({ userslist }) => {
-      setUsername(userslist[0])
       setFetchedUsers(userslist)
     })
 
@@ -133,8 +131,8 @@ export default function Room({ socket }) {
 
         <Meeting roomId={roomId} />
 
-        <button className="roomSidebarCopyBtn" onClick={() => { copyToClipboard(roomId) }}>Copy Room id</button>
-        <button className="roomSidebarBtn bg-blue-500 text-light-1  hover:bg-blue-600 transition-all" onClick={() => {
+        <button className="bg-blue-500 text-light-1  hover:bg-blue-600 transition-all px-3 py-2 rounded-lg" onClick={() => { copyToClipboard(roomId) }}>Copy Room id</button>
+        <button className="bg-red-500 text-light-1  hover:bg-red-600 transition-all px-3 py-2 rounded-lg" onClick={() => {
           handleLeave()
         }}>Leave</button>
       </div>
