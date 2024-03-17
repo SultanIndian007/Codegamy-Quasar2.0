@@ -15,7 +15,9 @@ export async function POST(req) {
     const userID = session?.user?._id;
     if (userID){
         const {queueID,rating,comment} = await req.json()
+        console.log(queueID )
         const queueItem = await Queue.findById(queueID)
+        console.log(queueItem)
         const review = new peerVideoReview(
             {
                 reviewer: userID,
