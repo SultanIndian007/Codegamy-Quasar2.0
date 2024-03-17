@@ -5,8 +5,6 @@ import rehypeRaw from "rehype-raw";
 
 const Content = ({ content, title }) => {
 
-    console.log(title)
-
     return (
         <div className="h-[92vh] py-4 w-full overflow-y-scroll">
             <div className={`flex-grow h-[92vh] absolute opacity-20 flex justify-center items-center left-[45%]`}>
