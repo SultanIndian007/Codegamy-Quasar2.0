@@ -1,25 +1,33 @@
 'use client'
 
+import axios from 'axios';
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 const page = () => {
 
     const interviews = [];
-    const [assignedInterviews, setAssignedInterviews] = useState([]);
+    const [assignedInterviews, setAssignedInterviews] = useState(null);
     const [assInterviewDetails, setAssInterviewDetails] = useState(null);
     const [isAssInterviewModalOpen, setIsAssInterviewModalOpen] = useState(false);
     const [feedback, setFeedback] = useState({ rating: 3, comment: "" });
+    const [submitted, setSubmitted] = useState(false);
 
     const fetchAssignedInterviews = async () => {
         const res = await fetch('/api/getAssigned');
         const data = await res.json();
         setAssignedInterviews(data);
-        // console.log(data);
     }
 
-    const handleSubmitReview = () => {
-
+    const handleSubmitReview = async () => {
+        
+        await axios.post('/api/submitReview', {
+            queueID: assInterviewDetails._id,
+            rating: feedback.rating,
+            comment: feedback.comment
+        });
+        setSubmitted(true);
+        setTimeout(() => {setSubmitted(false); setIsAssInterviewModalOpen(false);}, 2000);
     }
 
     useEffect(() => {
@@ -61,11 +69,11 @@ const page = () => {
                     Assigned Interviews
                 </h2>
                 <div className='w-full flex gap-10 flex-wrap'>
-                    {assignedInterviews.length > 0? (
-                        assignedInterviews.map((interview, index) => (
+                    {assignedInterviews && assignedInterviews.assigned && assignedInterviews.assigned.length > 0? (
+                        assignedInterviews.assigned.map((interview, index) => (
                             <div key={index} onClick={() => {setAssInterviewDetails(interview); setIsAssInterviewModalOpen(true);}}
                             className='w-[300px] rounded-lg cursor-pointer shadow-lg bg-light-2 py-14 text-center hover:bg-light-3 transition-all'>
-                                {`Assigned interview - ${index+1}`}
+                                {`Assigned interview - ${index+1}`}<br/>{`Deadline: ${assignedInterviews.assignedTime[index]}`}
                             </div>
                         ))
                     ) : (
@@ -94,19 +102,19 @@ const page = () => {
                         <div>
                             <p>Rating</p>
                             <div className='flex items-center gap-1'>
-                                <p onClick={() => setFeedback({...feedback, rating: 1})} className={`${feedback.rating >= 1 && 'bg-yellow-500'} p-1 rounded-full`}>
+                                <p onClick={() => setFeedback({...feedback, rating: 1})} className={`${feedback.rating >= 1 && 'bg-yellow-500'} p-1 px-2 rounded-full`}>
                                     1
                                 </p>
-                                <p onClick={() => setFeedback({...feedback, rating: 2})} className={`${feedback.rating >= 2 && 'bg-yellow-500'} p-1 rounded-full`}>
+                                <p onClick={() => setFeedback({...feedback, rating: 2})} className={`${feedback.rating >= 2 && 'bg-yellow-500'} p-1 px-2 rounded-full`}>
                                     2
                                 </p>
-                                <p onClick={() => setFeedback({...feedback, rating: 3})} className={`${feedback.rating >= 3 && 'bg-yellow-500'} p-1 rounded-full`}>
+                                <p onClick={() => setFeedback({...feedback, rating: 3})} className={`${feedback.rating >= 3 && 'bg-yellow-500'} p-1 px-2 rounded-full`}>
                                     3
                                 </p>
-                                <p onClick={() => setFeedback({...feedback, rating: 4})} className={`${feedback.rating >= 4 && 'bg-yellow-500'} p-1 rounded-full`}>
+                                <p onClick={() => setFeedback({...feedback, rating: 4})} className={`${feedback.rating >= 4 && 'bg-yellow-500'} p-1 px-2 rounded-full`}>
                                     4
                                 </p>
-                                <p onClick={() => setFeedback({...feedback, rating: 5})} className={`${feedback.rating >= 5 && 'bg-yellow-500'} p-1 rounded-full`}>
+                                <p onClick={() => setFeedback({...feedback, rating: 5})} className={`${feedback.rating >= 5 && 'bg-yellow-500'} p-1 px-2 rounded-full`}>
                                     5
                                 </p>
                             </div>
@@ -129,6 +137,12 @@ const page = () => {
                 </div>
             </div>
         )}
+
+      {submitted && (
+        <div className='fixed top-5 right-5 bg-green-300 shadow-lg rounded-lg py-3 px-5'>
+          Successfully submitted
+        </div>
+      )}
     </>
   )
 }
