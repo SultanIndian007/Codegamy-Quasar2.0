@@ -16,7 +16,7 @@ const page = () => {
 
   return (
     <div className="w-full h-[92vh] px-2 flex justify-center items-center">
-      <div className="max-w-[600px] rounded-lg shadow-lg px-10 py-14 flex flex-col items-center gap-5">
+      <div className="bg-light-1 max-w-[600px] rounded-lg shadow-lg px-10 py-14 flex flex-col items-center gap-5">
         <h1 className="font-medium">
           <span className="text-blue-500">User</span>, Welcome to Peer-graded
           Interview
@@ -36,11 +36,7 @@ const page = () => {
             with better online interview services. 
           </li>
           <li className="list-decimal">
-            If we share your personal
-            information with any third party, we will work hard to ensure that the
-            third party abides by the LeetCode Privacy Policy and other
-            appropriate confidentiality and security measures that we require it
-            to comply with when using your personal information.
+            There will be one question and you will be given 90 seconds to speak. It is preferred to answer the question in brief and meaningful way.
           </li>
         </ol>
 

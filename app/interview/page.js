@@ -80,11 +80,21 @@ const page = () => {
                     Create an Interview
                 </h2>
                 <div className='flex gap-10'>
-                    <Link href="/interview/peer-graded" className='w-[300px] rounded-lg shadow-lg bg-light-2 py-14 text-center hover:bg-light-3 transition-all'>
-                        Peer-graded Interview
+                    <Link href="/interview/peer-graded" className='w-[300px] flex flex-col items-center gap-2 rounded-lg shadow-lg bg-light-3 py-14 text-center hover:bg-light-4 transition-all'>
+                        <img 
+                            src='/p2p.png'
+                            alt="p2p"
+                            className='object-contain w-14 h-14'
+                        />
+                        <p>Peer-graded Interview</p>
                     </Link>
-                    <Link href="/interview/professional" className='w-[300px] rounded-lg shadow-lg bg-light-2 py-14 text-center hover:bg-light-3 transition-all'>
-                        Professional Interview
+                    <Link href="/interview/professional" className='w-[300px] rounded-lg shadow-lg bg-light-3 flex flex-col items-center gap-2 py-14 text-center hover:bg-light-4 transition-all'>
+                        <img 
+                            src='/professional.png'
+                            alt="professional"
+                            className='object-contain w-14 h-14'
+                        />
+                        <p>Professional Interview</p>
                     </Link>
                 </div>
             </div>
@@ -97,8 +107,13 @@ const page = () => {
                     {interviews && interviews.length > 0? (
                         interviews.map((interview, index) => (
                             <div key={index} onClick={() => {setInterviewDetails(interview); setIsInterviewModalOpen(true); setIsAssigned(false);}}
-                            className='w-[300px] rounded-lg cursor-pointer shadow-lg bg-light-2 py-14 text-center hover:bg-light-3 transition-all'>
-                                {`My Interview - ${index+1}`}<br/>{`Submitted: ${formatDateTime(new Date(interview.submissionTime))}`}
+                            className='w-[340px] rounded-lg flex flex-col items-center gap-2 cursor-pointer shadow-lg bg-gray-200 py-14 text-center hover:bg-gray-300 transition-all'>
+                                <img 
+                                    src='/interview.png'
+                                    alt="interview"
+                                    className='object-contain w-14 h-14'
+                                />
+                                <p>{`My Interview - ${index+1}`}<br/>{`Submitted: ${formatDateTime(new Date(interview.submissionTime))}`}</p>
                             </div>
                         ))
                     ) : (
@@ -115,8 +130,13 @@ const page = () => {
                     {assignedInterviews && assignedInterviews.assigned && assignedInterviews.assigned.length > 0? (
                         assignedInterviews.assigned.map((interview, index) => (
                             <div key={index} onClick={() => {setInterviewDetails(interview); setIsInterviewModalOpen(true); setIsAssigned(true);}}
-                            className='w-[300px] rounded-lg cursor-pointer shadow-lg bg-light-2 py-14 text-center hover:bg-light-3 transition-all'>
-                                {`Assigned interview - ${index+1}`}<br/>{`Deadline: ${deadlineFormat(new Date(new Date(assignedInterviews.assignedTime[index]).getTime() + 2 * 24 * 60 * 60 * 1000))}`}
+                            className='w-[330px] flex flex-col items-center gap-2 rounded-lg cursor-pointer shadow-lg bg-stone-200 py-14 text-center hover:bg-stone-300 transition-all'>
+                                <img 
+                                    src='/assignment.png'
+                                    alt="assignment"
+                                    className='object-contain w-14 h-14'
+                                />
+                                <p>{`Assigned interview - ${index+1}`}<br/>{`Deadline: ${deadlineFormat(new Date(new Date(assignedInterviews.assignedTime[index]).getTime() + 2 * 24 * 60 * 60 * 1000))}`}</p>
                             </div>
                         ))
                     ) : (

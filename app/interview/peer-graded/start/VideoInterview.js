@@ -38,18 +38,15 @@ const VideoInterview = ({ questions }) => {
   }
 
   const blobUrlToFile = async (blobUrl) => {
+    setSubmitted(true);
     const file = await fetch(blobUrl).then(r => r.blob()).then(blobFile => new File([blobFile], 'interview.mp4', { type: blobFile.type }));
     const formData = new FormData();
     formData.append('video', file);
     formData.append('id', questions[0].id);
-    await axios.post('/api/submitVideo', formData);
-
-    setSubmitted(true);
-    setTimeout(() => { setSubmitted(false); router.push('/interview'); }, 2000);
-
+    await axios.post('/api/submitVideo', formData).then(() => {
+      setSubmitted(false); router.push('/interview');
+    });
   };
-
-
 
   return (
     <>
@@ -65,7 +62,7 @@ const VideoInterview = ({ questions }) => {
               stopRecording();
             }
             return (
-              <div className="flex flex-col items-center gap-6">
+              <div className="flex flex-col items-center gap-6 w-[650px] mx-auto">
                 <div className="flex flex-col gap-2">
                   {questions.map((question, index) => (
                     <h2 key={index} className="font-medium">
@@ -79,27 +76,27 @@ const VideoInterview = ({ questions }) => {
                   </div>
                   
                   {recording? (
-                    <Webcam className="w-[600px] h-auto" />
+                    <Webcam className="w-full h-auto" />
                   ) : stopped? (
                     <video
                       src={mediaBlobUrl}
                       controls
                       loop
                       controlsList="nofullscreen nodownload noremoteplayback noplaybackrate foobar"
-                      className="w-[600px] h-auto"
+                      className="w-full h-auto"
                     />
                   ) : (
-                    <div className="w-[600px] h-[450px] bg-black" />
+                    <div className="w-[650px] h-[450px] bg-black" />
                   )}
                 </div>
 
-                <div className="flex gap-8 items-center">
+                <div className="w-full flex gap-8 items-center">
                   {attempted < 2 && (idle || stopped) && (
                     <button
                       onClick={() => {
                         startRecording();
                       }}
-                      className="bg-blue-500 text-light-1 px-3 py-2 rounded-lg"
+                      className="w-full bg-blue-500 text-light-1 px-3 py-2 rounded-lg"
                     >
                       {attempted === 0 ? "Start" : "Retake"}
                     </button>
@@ -107,7 +104,7 @@ const VideoInterview = ({ questions }) => {
                   {!(idle || stopped) && (
                     <button
                       onClick={() => stopRecording()}
-                      className="bg-blue-500 text-light-1 px-3 py-2 rounded-lg"
+                      className="w-full bg-blue-500 text-light-1 px-3 py-2 rounded-lg"
                     >
                       Stop
                     </button>
@@ -117,7 +114,7 @@ const VideoInterview = ({ questions }) => {
                       onClick={() => {
                         blobUrlToFile(mediaBlobUrl);
                       }}
-                      className="bg-blue-500 text-light-1 px-3 py-2 rounded-lg"
+                      className="w-full bg-blue-500 text-light-1 px-3 py-2 rounded-lg"
                     >
                       Finish
                     </button>
