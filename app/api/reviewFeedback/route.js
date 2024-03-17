@@ -18,6 +18,7 @@ export async function POST(req) {
         const reviewItem = await peerVideoReview.findById(reviewID)
         reviewItem.feedback = feedback;
         await reviewItem.save()
+        console.log(reviewItem.reviewer)
         const user = await User.findById(reviewItem.reviewer)
         const userdata = await UserInfo.findById(user.userInfo)
         userdata.rating += feedback
