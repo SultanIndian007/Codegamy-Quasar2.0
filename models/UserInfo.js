@@ -17,7 +17,7 @@ const UserInfoSchema = new Schema({
   rating: {type: Number, default: 0},
   assigned: [{ type: Schema.Types.ObjectId, ref: 'Queue', default: [],  }],
   assignedTime: [{ type: Date,  default: [],  }],
-
+  amount: {type: Number, default: 0}
 
 }, {timestamps: true});
 

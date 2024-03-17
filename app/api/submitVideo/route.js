@@ -11,7 +11,7 @@ import {peerVideoReview} from "@/models/PeerVideoReview.js";
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../auth/[...nextauth]/route.js"
 
-async function QueueCheck(peerVideo, user){
+async function QueueCheck(peerVideo, user, paid){
     const oguserdata = await UserInfo.findById(user.userInfo)
 
     const newQueue = new Queue({
@@ -19,11 +19,10 @@ async function QueueCheck(peerVideo, user){
         peerVideo: peerVideo._id,
         userRating: oguserdata.rating
     });
-    await newQueue.save();
-
+    const nq = await newQueue.save();
     const queue = await Queue.find({assigned:{$size: 0}}).populate('user')
     const bands = [0, 20, 30, 40,50, 60, 70,80,90, 100];
-    const queueSize = [5,5,5,2,2,2,2,2,2,2];
+    const queueSize = [5,5,5,3,3,3,3,3,2,2];
 
     function findQueueSize(score) {
         for (let i = 0; i < bands.length; i++) {
@@ -33,27 +32,38 @@ async function QueueCheck(peerVideo, user){
         }
         return queueSize[queueSize.length - 1];
     }
-    
-    const filteredQueue = queue.filter((video) => { 
-        return video.userRating >= (Math.floor(oguserdata.rating / 10) * 10) && video.userRating <= Math.ceil(oguserdata.rating / 10) * 10;
-    });
-
-    if (filteredQueue.length >= findQueueSize(oguserdata.rating)) {
-        for (let i = 0; i < filteredQueue.length; i++) {
-            for (let j = 0; j < filteredQueue.length; j++) {
-                if (filteredQueue[i].user._id !== filteredQueue[j].user._id) {
-                    const userinfo = await UserInfo.findById(filteredQueue[j].user.userInfo);
-                    // console.log(filteredQueue[j])
-                    await userinfo.assigned.push(filteredQueue[i]._id);
-                    await userinfo.assignedTime.push(Date.now())
-                    await userinfo.save();
-                    await filteredQueue[i].assigned.push(filteredQueue[j]._id);
-                    await filteredQueue[i].save();
+    let filteredQueue
+    if (paid){
+        let userinfo = await UserInfo.find({ rating: { $gt: 80 }}).limit(1)
+        userinfo = userinfo[0]
+        userinfo.assigned.push(nq._id);
+        userinfo.assignedTime.push(Date.now())
+        userinfo.amount += (paid/10)
+        await userinfo.save();
+        await nq.assigned.push(userinfo._id);
+        await nq.save();
+    }
+    else{
+        filteredQueue = queue.filter((video) => { 
+            return video.userRating >= (Math.floor(oguserdata.rating / 10) * 10) && video.userRating <= Math.ceil(oguserdata.rating / 10) * 10;
+        });    
+        if (filteredQueue.length >= findQueueSize(oguserdata.rating)) {
+            for (let i = 0; i < filteredQueue.length; i++) {
+                for (let j = 0; j < filteredQueue.length; j++) {
+                    if (filteredQueue[i].user._id !== filteredQueue[j].user._id) {
+                        const userinfo = await UserInfo.findById(filteredQueue[j].user.userInfo);
+                        await userinfo.assigned.push(filteredQueue[i]._id);
+                        await userinfo.assignedTime.push(Date.now())
+                        await userinfo.save();
+                        await filteredQueue[i].assigned.push(filteredQueue[j]._id);
+                        await filteredQueue[i].save();
+                    }
                 }
             }
+            
         }
-        
     }
+
 
 }
 
@@ -64,6 +74,7 @@ export async function POST(request) {
     if (userID){
         const formData = await request.formData()
         const questionID = formData.get('id')
+        const paid = formData.get('paid')
         const file = formData.get('video')
         if (!file) {
             return Response.json({ error: "No files received." }, { status: 400 });
@@ -86,8 +97,11 @@ export async function POST(request) {
             )
             const temp = await newPeerVideo.save()
             userdata.peerVideo.push(temp.id)
+            if(paid){
+                userdata.amount-=paid
+            }
             userdata.save()
-            await QueueCheck(temp, user)
+            await QueueCheck(temp, user,paid)
             
             return Response.json({ Message: "Success, Video Saved", status: 201 });
         } catch (error) {
