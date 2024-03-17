@@ -134,7 +134,7 @@ export default function ProfileSection() {
         <div>
           <h1>Rating : <h2>{data.rating}</h2></h1>
           <h1>Amount : <h2>{data.amount}</h2></h1>
-          <h2>{data.amount}</h2>
+          
         </div>
         <div className="mt-2">
           <h3 className="text-lg font-semibold text-gray-800 mb-2">Skills</h3>
