@@ -45,7 +45,7 @@ const page = () => {
     return (
         <div className="w-full px-1 h-[92vh] flex gap-3 pr-5">
             <Modules modules={moduledata} setData={setData} data={contentdata} />
-            <Content content={data} />
+            <Content content={data} title={courseId} />
         </div>
     )
 }

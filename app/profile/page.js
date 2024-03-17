@@ -131,6 +131,10 @@ export default function ProfileSection() {
   return (
     <div className="flex justify-between p-6">
       <div className="w-1/3 pr-6">
+        <div>
+          <h1>Rating</h1>
+          <h2>{data.rating}</h2>
+        </div>
         <div className="mt-2">
           <h3 className="text-lg font-semibold text-gray-800 mb-2">Skills</h3>
           {Object.entries(userInfo.skills).map(([category, skills]) => (
