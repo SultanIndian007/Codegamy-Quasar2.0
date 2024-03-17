@@ -15,7 +15,6 @@ export default function ProfileSection() {
       try {
         const response = await axios.get("/api/getUserInfo");
         const data = response.data;
-        console.log("User info:", data);
         setData(data);
       } catch (error) {
         console.error("Error fetching user info:", error);
