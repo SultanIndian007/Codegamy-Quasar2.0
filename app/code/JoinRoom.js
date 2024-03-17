@@ -16,7 +16,7 @@ export default function JoinRoom() {
             toast.error("Incorrect room ID")
             return
         }
-        username && navigate(`/room/${roomId}`, { state: { username } })
+        username && navigate(`/room/${roomId}?username=${username}`, { state: { username } })
     }
 
     function createRoomId(e) {
@@ -63,7 +63,7 @@ export default function JoinRoom() {
                     <label htmlFor="usernameInput" className="joinBoxWarning">{username ? '' : "username required"}</label>
                 </div>
 
-                <button className="joinBoxBtn" type="submit">Join</button>
+                <button className="text-light-1 bg-blue-500 hover:bg-blue-600 transition-all px-3 py-2 rounded-lg" type="submit">Join</button>
                 <p>Don't have an invite code? Create your <span
                     style={{ textDecoration: "underline", cursor: "pointer" }}
                     onClick={createRoomId}

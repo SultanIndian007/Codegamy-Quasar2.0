@@ -4,6 +4,7 @@ import AceEditor from "react-ace";
 import { Toaster, toast } from 'react-hot-toast';
 import { useNavigate, useParams } from "react-router-dom";
 import { generateColor } from "./utils";
+import Meeting from "@/components/interview/Meeting";
 import './Room.css'
 
 import "ace-builds/src-noconflict/mode-javascript";
@@ -30,6 +31,7 @@ export default function Room({ socket }) {
   const [fetchedCode, setFetchedCode] = useState(() => "")
   const [language, setLanguage] = useState(() => "javascript")
   const [codeKeybinding, setCodeKeybinding] = useState(() => undefined)
+  const [username, setUsername] = useState(() => "")
 
   const languagesAvailable = ["javascript", "java", "c_cpp", "python", "typescript", "golang", "yaml", "html"]
   const codeKeybindingsAvailable = ["default", "emacs", "vim"]
@@ -66,6 +68,7 @@ export default function Room({ socket }) {
 
   useEffect(() => {
     socket.on("updating client list", ({ userslist }) => {
+      setUsername(userslist[0])
       setFetchedUsers(userslist)
     })
 
@@ -78,11 +81,11 @@ export default function Room({ socket }) {
     })
 
     socket.on("new member joined", ({ username }) => {
-      toast(`${username} joined`)
+      // toast(`${username} joined`)
     })
 
     socket.on("member left", ({ username }) => {
-      toast(`${username} left`)
+      // toast(`${username} left`)
     })
 
     const backButtonEventListner = window.addEventListener("popstate", function (e) {
@@ -99,7 +102,7 @@ export default function Room({ socket }) {
 
   return (
     <div className="room">
-      <div className="roomSidebar">
+      <div className="roomSidebar w-24">
         <div className="roomSidebarUsersWrapper">
           <div className="languageFieldWrapper">
             <select className="languageField" name="language" id="language" value={language} onChange={handleLanguageChange}>
@@ -128,8 +131,10 @@ export default function Room({ socket }) {
           </div>
         </div>
 
+        <Meeting roomId={roomId} />
+
         <button className="roomSidebarCopyBtn" onClick={() => { copyToClipboard(roomId) }}>Copy Room id</button>
-        <button className="roomSidebarBtn" onClick={() => {
+        <button className="roomSidebarBtn bg-blue-500 text-light-1  hover:bg-blue-600 transition-all" onClick={() => {
           handleLeave()
         }}>Leave</button>
       </div>

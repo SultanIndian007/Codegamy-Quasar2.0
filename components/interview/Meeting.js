@@ -1,14 +1,16 @@
 "use client"
 import { JaaSMeeting } from "@jitsi/react-sdk";
 import React, { useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
-const Meeting = () => {
+const Meeting = ({roomId, username}) => {
 
   const JaasAppId = 'vpaas-magic-cookie-456ae8466e3045318ab652c4b6895d79';
-  const meetId = 'test123';
+  const meetId = roomId;
   const apiRef = useRef(null);
   const [logItems, updateLog] = useState([]);
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
+  const searchparams = useSearchParams();
 
   const professionalInterviewer = [
     { 
@@ -47,7 +49,7 @@ const Meeting = () => {
     iframeRef.style.border = "10px solid #3d3d3d";
     iframeRef.style.background = "#3d3d3d";
     iframeRef.style.height = "400px";
-    iframeRef.style.marginBottom = "20px";
+    // iframeRef.style.marginBottom = "20px";
     iframeRef.style.width = "100%";
   };
 
@@ -65,6 +67,7 @@ const Meeting = () => {
   };
 
   const handleApiReady = (apiObj) => {
+    console.log(searchparams);
     apiRef.current = apiObj;
     apiRef.current.on("knockingParticipant", handleKnockingParticipant);
     apiRef.current.on("audioMuteStatusChanged", (payload) =>
@@ -92,8 +95,8 @@ const Meeting = () => {
   };
 
   return (
-    <div id="meet-page" className="flex flex-col items-center justify-center h-screen " style={{ overflowY: "scroll" }}>
-      <div className="jitsi-component-div" id="jaas-meet-video" style={{ width: "100%", height: "100%" }}>
+    <div id="meet-page" className="flex flex-col items-center justify-center " style={{ overflowY: "scroll" }}>
+      <div className="jitsi-component-div" id="jaas-meet-video">
         <JaaSMeeting
             appId={JaasAppId}
             roomName={meetId}
@@ -129,27 +132,13 @@ const Meeting = () => {
                 SHOW_JITSI_WATERMARK: false,
                 SCREENSHARING_ENABLED: true,
             }}
+            userInfo = {{
+                displayName: searchparams.get('username')
+            }}
             
         />
       </div>
-
-      {/* select prefessional interviewer and click on start interview */}
-      <div className="w-full flex justify-center items-center gap-5 p-8" onClick={() => {
-        alert("Interview started")
-      }
-      }>
-        {professionalInterviewer.map((interviewer, index) => (
-          <div key={index} className="w-[300px] rounded-lg shadow-lg bg-light-2 py-14 text-center hover:bg-light-3 transition-all">
-            <h2>{interviewer.name}</h2>
-            <p>{interviewer.professional}</p>
-            <p>{interviewer.experience}</p>
-            <p>{interviewer.price}</p>
-          </div>
-        ))}
-      </div>
     </div>
-
-
     
   )
 }
