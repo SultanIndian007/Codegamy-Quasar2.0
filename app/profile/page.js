@@ -132,9 +132,8 @@ export default function ProfileSection() {
     <div className="flex justify-between p-6">
       <div className="w-1/3 pr-6">
         <div>
-          <h1>Rating</h1>
-          <h2>{data.rating}</h2>
-          <h1>Amount</h1>
+          <h1>Rating : <h2>{data.rating}</h2></h1>
+          <h1>Amount : <h2>{data.amount}</h2></h1>
           <h2>{data.amount}</h2>
         </div>
         <div className="mt-2">
@@ -252,23 +251,23 @@ export default function ProfileSection() {
             <h3 className="text-lg font-semibold text-gray-800 mb-2">Additional Info</h3>
             <div className="flex items-center mb-2">
               <div className="w-24 mr-2">Age:</div>
-              <div className="text-gray-800">{userInfo.age}</div>
+              <div className="text-gray-800">{data.age}</div>
             </div>
             <div className="flex items-center mb-2">
               <div className="w-24 mr-2">Gender:</div>
-              <div className="text-gray-800">{userInfo.gender}</div>
+              <div className="text-gray-800">{data.gender}</div>
             </div>
             <div className="flex items-center mb-2">
               <div className="w-24 mr-2">College:</div>
-              <div className="text-gray-800">{userInfo.college}</div>
+              <div className="text-gray-800">{data.college}</div>
             </div>
             <div className="flex items-center mb-2">
               <div className="w-24 mr-2">City:</div>
-              <div className="text-gray-800">{userInfo.city}</div>
+              <div className="text-gray-800">{data.city}</div>
             </div>
             <div className="flex items-center mb-2">
               <div className="w-24 mr-2">Country:</div>
-              <div className="text-gray-800">{userInfo.country}</div>
+              <div className="text-gray-800">{data.country}</div>
             </div>
           </div>
         </div>

@@ -24,7 +24,7 @@ export async function GET() {
         
         const temp = userdata.peerVideo
         const data = temp.filter((data) => { 
-          if (data.reviews.length >= 2) {
+          if (data.reviews.length >= 2 && userdata.assigned.length===0) {
               return true; 
           } else {
               data.reviews = [];
