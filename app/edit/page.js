@@ -1,6 +1,7 @@
 // pages/index.js
 
 'use client'
+import Link from 'next/link';
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -25,34 +26,39 @@ const Form = () => {
   };
 
   const handleSubmit = async (event) => {
-    console.log("Handle submit called");
     event.preventDefault();
     setIsLoading(true);
     setError(null);
     setSuccess(null);
 
     try {
-      console.log("Trying to submit form data:", formData);
-      const response = await axios.post('/api/form', formData); 
-      console.log("Response after form submission:", response);
-      setSuccess('Form data submitted successfully!');
+        const response = await axios.post('/api/profileUpdate', formData);
+        setSuccess('Form data submitted successfully!');
+        console.log("Response after form submission:", response);
     } catch (error) {
-      console.error("Error occurred during form submission:", error);
-      setError(error.response?.data?.message || 'An error occurred.');
+        if (error.response) {
+            console.error("Server responded with error:", error.response.data);
+            setError(error.response.data.message || 'An error occurred.');
+        } else if (error.request) {
+            console.error("No response received:", error.request);
+            setError('No response received from the server.');
+        } else {
+            console.error("Request setup error:", error.message);
+            setError('Error setting up the request.');
+        }
     } finally {
-      console.log("Finally block executed");
-      setIsLoading(false);
-      setFormData({
-        name: '',
-        age: '',
-        gender: '',
-        college: '',
-        city: '',
-        country: '',
-        phone: '',
-      });
+        setIsLoading(false);
+        setFormData({
+            name: '',
+            age: '',
+            gender: '',
+            college: '',
+            city: '',
+            country: '',
+            phone: '',
+        });
     }
-  };
+};
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
@@ -163,9 +169,11 @@ const Form = () => {
         type="submit"
         className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
         disabled={isLoading}
+        onClick={handleSubmit}
       >
         Submit
       </button>
+      <Link href ="/profile" ><u>Return Home</u></Link>
     </form>
   );
 };
@@ -173,8 +181,8 @@ const Form = () => {
 export default function Home() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold mb-4">Fill out the form</h1>
+      <div className="max-w-lg w-full bg-white p-8 rounded-lg shadow-md"> {/* Adjust max-w-lg and w-full */}
+        <h1 className="text-2xl font-bold mb-4">Edit profile</h1>
         <Form />
       </div>
     </div>
