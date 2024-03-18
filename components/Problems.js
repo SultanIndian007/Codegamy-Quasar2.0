@@ -28,7 +28,7 @@ const Problems = () => {
     };
 
     const openVideoPopup = (videoUrl) => {
-        setSelectedVideo(videoUrl);
+        setSelectedVideo('8-k1C6ehKuw');
     };
 
     const closeVideoPopup = () => {
@@ -38,7 +38,7 @@ const Problems = () => {
     return (
         <div>
             <div className="p-10">
-                <div className="relative overflow-x-auto sm:rounded-lg">
+                <div className="relative overflow-x-auto sm:rounded-lg shadow-lg">
                     <table className="w-full text-sm text-left rtl:text-right ">
                         <thead className="text-xs text-gray-500 uppercase bg-light-3">
                             <tr>
@@ -85,10 +85,10 @@ const Problems = () => {
                                     <td className="px-6 py-4">
                                         {problem.category}
                                     </td>
-                                    <td className="px-6 py-4">
-                                        <AiOutlineSolution color={'blue'} size={24} />
+                                    <td className="px-6 py-4 cursor-pointer">
+                                        <AiOutlineSolution color={'blue'} size={24} onClick={() => openVideoPopup(problem.videoId)} />
                                     </td>
-                                    <td className="px-6 py-4 flex justify-between">
+                                    <td className="px-6 py-4 cursor-pointer">
                                         <ImYoutube2 color={'red'} size={35} onClick={() => openVideoPopup(problem.videoId)} />
                                     </td>
                                 </tr>
@@ -99,8 +99,8 @@ const Problems = () => {
             </div>
             {selectedVideo && (
                 <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 flex justify-center items-center z-50">
-                    <div className="bg-white p-8 rounded-lg">
-                        <button onClick={closeVideoPopup} className="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none">
+                    <div className="bg-white p-8 rounded-lg flex flex-col items-end gap-2">
+                        <button onClick={closeVideoPopup} className="text-gray-600 hover:text-gray-800 focus:outline-none">
                             Close
                         </button>
                         <iframe

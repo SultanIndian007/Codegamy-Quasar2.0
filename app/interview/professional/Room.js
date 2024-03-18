@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import AceEditor from "react-ace";
 import { Toaster, toast } from 'react-hot-toast';
-import { useNavigate, useParams } from "react-router-dom";
+import { useRouter, useParams } from "next/navigation";
 import { generateColor } from "./utils";
 import Meeting from "@/components/interview/Meeting";
 import './Room.css'
@@ -25,7 +25,7 @@ import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/ext-searchbox";
 
 export default function Room({ socket }) {
-  const navigate = useNavigate()
+  const navigate = useRouter()
   const { roomId } = useParams()
   const [fetchedUsers, setFetchedUsers] = useState(() => [])
   const [fetchedCode, setFetchedCode] = useState(() => "")
@@ -53,7 +53,7 @@ export default function Room({ socket }) {
 
   function handleLeave() {
     socket.disconnect()
-    !socket.connected && navigate('/', { replace: true, state: {} })
+    if (!socket.connected) navigate.push('/', { replace: true, state: {} });
   }
 
   function copyToClipboard(text) {

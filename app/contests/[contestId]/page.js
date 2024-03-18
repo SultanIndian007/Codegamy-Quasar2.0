@@ -85,12 +85,12 @@ const page = () => {
           </ul>
         </div>
 
-        <div className="min-w-[300px] max-w-[300px] bg-light-2 rounded-lg h-fit">
+        <div className="min-w-[300px] max-w-[300px] bg-light-2 rounded-lg h-fit shadow-lg pb-2">
           <div className="flex items-center gap-3 bg-light-3 pt-4 pb-3 px-6 rounded-t-lg">
             <img
-              src="/google.png"
+              src="/prize.png"
               alt="trophy-icon"
-              className="w-5 h-5 object-contain"
+              className="w-7 h-7 object-contain"
             />
             <h2>Prize</h2>
           </div>
@@ -101,9 +101,9 @@ const page = () => {
                 <div className="flex items-center gap-1">
                   {prize.points}
                   <img 
-                      src='/google.png'
+                      src='/coin.png'
                       alt='contest-icon'
-                      className='w-3 h-3 object-contain rounded-full'
+                      className='w-4 h-4 object-contain rounded-full'
                   />
                 </div>
               </div>

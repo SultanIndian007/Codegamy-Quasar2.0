@@ -67,12 +67,12 @@ const page = () => {
         </div>
       </div>
 
-      <div className="min-w-[350px] max-w-[350px] bg-light-2 rounded-lg h-fit">
+      <div className="min-w-[350px] max-w-[350px] bg-light-2 rounded-lg h-fit shadow-lg">
         <div className="flex items-center gap-3 bg-light-3 pt-4 pb-3 px-6 rounded-t-lg">
           <img
-            src='/google.png'
+            src='/ranking.png'
             alt='trophy-icon'
-            className='w-5 h-5 object-contain'
+            className='w-6 h-6 object-contain'
           />
           <h1>Global Ranking</h1>
         </div>
