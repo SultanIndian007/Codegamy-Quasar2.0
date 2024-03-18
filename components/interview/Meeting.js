@@ -95,8 +95,8 @@ const Meeting = ({roomId, username}) => {
   };
 
   return (
-    <div id="meet-page" className="flex flex-col items-center justify-center " style={{ overflowY: "scroll" }}>
-      <div className="jitsi-component-div" id="jaas-meet-video">
+    <div id="meet-page" className="flex flex-col items-center justify-center" style={{ overflowY: "scroll" }}>
+      <div className="jitsi-component-div w-full" id="jaas-meet-video">
         <JaaSMeeting
             appId={JaasAppId}
             roomName={meetId}
