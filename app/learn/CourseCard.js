@@ -1,21 +1,14 @@
 'use client';
-import react from 'react';
-import { Button, Card, CardBody, CardTitle, CardText, Progress } from 'reactstrap';
+import { Button, Card, CardBody, CardTitle, CardText } from 'reactstrap';
 import { useRouter } from 'next/navigation';
 
 
-const CourseCard = ({ name, title, desc, progress, button, image }) => {
+const CourseCard = ({ name, title, desc, image }) => {
     const router = useRouter();
 
     return (
-        <Card style={{backgroundColor: '#f8f9fa',
-            borderRadius: '10px',
-            width: '300px',
-            boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
-            borderColor:"#f8f9fa",
-            margin: '15px 20px'
-        }}
-        >
+        <Card className='bg-light-1 rounded-lg w-[300px] shadow-lg mx-6 my-4 hover:bg-light-2 cursor-pointer transition-all' 
+            onClick={() => router.push(`/courses/${name}`)}>
             <CardBody className='flex flex-col p-4 justify-between gap-4 h-full'>
                 <CardTitle 
                     tag="h2"
@@ -23,7 +16,6 @@ const CourseCard = ({ name, title, desc, progress, button, image }) => {
                 <CardText
                     className='text-sm flex-grow'
                 >{desc}</CardText>
-                {/* <Progress value={50}  style={{height: '10px', borderRadius: '5px'}}/> */}
                 <img
                     src={image}
                     alt={title}

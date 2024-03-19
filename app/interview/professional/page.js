@@ -1,13 +1,11 @@
-"use client"
-import { JaaSMeeting } from "@jitsi/react-sdk";
-import React, { useRef, useState } from "react";
-import Meeting from "@/components/interview/Meeting";
-const page = () => {
 
+import React from 'react';
+import JoinRoom from './JoinRoom';
+
+function App() {
   return (
-    <div>
-    </div>
-  )
+    <JoinRoom />
+  );
 }
 
-export default page
+export default App;

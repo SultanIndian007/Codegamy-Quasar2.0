@@ -88,7 +88,7 @@ const page = () => {
                         />
                         <p>Peer-graded Interview</p>
                     </Link>
-                    <Link href="/code" className='w-[300px] rounded-lg shadow-lg bg-light-3 flex flex-col items-center gap-2 py-14 text-center hover:bg-light-4 transition-all'>
+                    <Link href="/interview/professional" className='w-[300px] rounded-lg shadow-lg bg-light-3 flex flex-col items-center gap-2 py-14 text-center hover:bg-light-4 transition-all'>
                         <img 
                             src='/professional.png'
                             alt="professional"

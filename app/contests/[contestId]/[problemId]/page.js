@@ -83,8 +83,8 @@ const page = () => {
                     </div>
                 </div>
 
-                <div className='w-[350px] border-2 border-light-3 rounded-lg'>
-                    <div className='bg-light-2 rounded-t-lg py-2 px-4'>
+                <div className='w-[350px] bg-light-2 border-2 border-light-3 rounded-lg shadow-lg'>
+                    <div className='bg-light-3 rounded-t-lg py-2 px-4'>
                         <h2 className='font-medium'>Submission Info</h2>
                     </div>
                     <div className="flex justify-between items-center border-t border-light-3 py-2 px-4">

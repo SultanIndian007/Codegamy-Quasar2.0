@@ -12,9 +12,9 @@ import axios from "axios";
 import Loader from "../shared/Loader";
 import FontSizeDropdown from "./FontSizeDropdown";
 
-const Playground = ({ problem, isForSubmission = true, setSubmitted }) => {
+const Playground = ({ problem=null, isForSubmission = true, setSubmitted }) => {
   
-  const [customInput, setCustomInput] = useState(problem.testCase.input[0]);
+  const [customInput, setCustomInput] = useState(problem? problem.testCase.input[0] : '');
   const [outputDetails, setOutputDetails] = useState(null);
   const [isCodeRunning, setIsCodeRunning] = useState(false);
   const [isCodeSubmitting, setIsCodeSubmitting] = useState(false);

@@ -8,7 +8,7 @@ const ContestCard = ({ contestId, contestUrl, isUpcoming=false, isOngoing }) => 
             <div className='flex'>
                 <div className='bg-light-3 p-2 rounded-full'>
                     <img 
-                        src='/google.png'
+                        src='/prize.png'
                         alt='contest-icon'
                         className='w-14 h-14 object-contain rounded-full'
                     />
@@ -21,7 +21,7 @@ const ContestCard = ({ contestId, contestUrl, isUpcoming=false, isOngoing }) => 
             </div>
             <div className='flex items-center gap-2'>
                 <img
-                    src='/google.png'
+                    src='/timer.png'
                     alt='clock-icon'
                     className='w-4 h-4 object-contain'
                 />
@@ -49,7 +49,7 @@ const ContestCard = ({ contestId, contestUrl, isUpcoming=false, isOngoing }) => 
             <div>
                 <button className='bg-light-3 hover:bg-light-4 p-2 rounded-lg'>
                     <img
-                        src='/google.png'
+                        src='/calendar.png'
                         alt='clock-icon'
                         className='w-6 h-6 object-contain'
                     />

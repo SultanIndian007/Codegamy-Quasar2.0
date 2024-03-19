@@ -7,10 +7,11 @@ import { java } from "@codemirror/lang-java";
 import { cpp } from "@codemirror/lang-cpp";
 import ReactCodeMirror from "@uiw/react-codemirror";
 
-const CodeEditorWindow = ({ onChange, language, code, theme, fontSize, forProblemsPage=true }) => {
+const CodeEditorWindow = ({ onChange, language, code, theme, fontSize, forProblemsPage=true, isInterview=false }) => {
 
   const handleEditorChange = (value) => {
-    onChange("code", value);
+    if (isInterview) onChange(value);
+    else onChange('code', value);
   };
 
   return (

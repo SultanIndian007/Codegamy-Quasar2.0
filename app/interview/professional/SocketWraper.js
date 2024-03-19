@@ -1,7 +1,8 @@
 'use client'
 import React, { useEffect } from "react";
 import { toast } from "react-hot-toast";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useRouter, useParams, useSearchParams } from "next/navigation";
+// import { useRouter as useLocation } from "next/router";
 import { io } from "socket.io-client";
 
 function addPropsToReactElement(element, props) {
@@ -23,20 +24,22 @@ function addPropsToChildren(children, props) {
 export default function SocketWrapper({ children }) {
     const socket = io.connect("https://quasar2-hack.onrender.com")
 
-    const location = useLocation()
-    const navigate = useNavigate()
+    const searchParams = useSearchParams()
+    const navigate = useRouter()
     const { roomId } = useParams()
+    const username = searchParams.get('username');
+
 
     useEffect(() => {
         function kickStrangerOut() {
-            navigate("/", { replace: true })
+            navigate.push("/", { replace: true });
             toast.error("No username provided")
         }
 
-        location.state && location.state.username ? socket.emit("when a user joins", { roomId, username: location.state.username }) : kickStrangerOut()
-    }, [socket, location.state, roomId, navigate])
+        username ? socket.emit("when a user joins", { roomId, username: username }) : kickStrangerOut()
+    }, [socket, username, roomId, navigate])
 
-    return location.state && location.state.username ? <div>{addPropsToChildren(children, { socket })}</div> : (
+    return username ? <div>{addPropsToChildren(children, { socket })}</div> : (
         <div className="room">
             <h2>No username provided. Please use the form to join a room.</h2>
         </div>

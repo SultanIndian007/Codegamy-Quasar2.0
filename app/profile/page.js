@@ -48,6 +48,8 @@ export default function ProfileSection() {
       { name: "January", image: "/january.jpg" },
       { name: "June", image: "/june.png" },
       { name: "July", image: "/july.png" },
+      { name: "Knight", image: "/knight_badge.png" },
+      { name: "Soldier", image: "/soldier.png" },
     ],
     age: 20,
     gender: "Male",
@@ -133,34 +135,37 @@ export default function ProfileSection() {
     <div className="flex w-[90vw] max-w-6xl gap-2 px-3 py-2">  
       <div className="min-w-[400px] max-w-[400px]">
         <div className="bg-light-1 rounded-lg shadow-lg px-4 py-4 flex flex-col gap-3">
+          <h2 className="text-2xl font-semibold text-gray-800">
+            {data.name}
+          </h2>
           <h3 className="text-lg font-semibold text-gray-800 mb-2">
             Additional Info
           </h3>
-          <div className="flex items-center mb-2">
+          <div className="flex items-center mb-1">
             <div className="w-24 mr-2 font-medium">Age:</div>
             <div className="text-gray-800">{data.age}</div>
           </div>
-          <div className="flex items-center mb-2">
+          <div className="flex items-center mb-1">
             <div className="w-24 mr-2 font-medium">Gender:</div>
             <div className="text-gray-800">{data.gender}</div>
           </div>
-          <div className="flex items-center mb-2">
+          <div className="flex items-center mb-1">
             <div className="w-24 mr-2 font-medium">College:</div>
             <div className="text-gray-800">{data.college}</div>
           </div>
-          <div className="flex items-center mb-2">
+          <div className="flex items-center mb-1">
             <div className="w-24 mr-2 font-medium">City:</div>
             <div className="text-gray-800">{data.city}</div>
           </div>
-          <div className="flex items-center mb-2">
+          <div className="flex items-center mb-1">
             <div className="w-24 mr-2 font-medium">Country:</div>
             <div className="text-gray-800">{data.country}</div>
           </div>
-          <div className="flex items-center mb-2">
+          <div className="flex items-center mb-1">
             <div className="w-24 mr-2 font-medium">Rating:</div>
             <div className="text-gray-800">{data.rating}</div>
           </div>
-          <div className="flex items-center mb-2">
+          <div className="flex items-center mb-1">
             <div className="w-24 mr-2 font-medium">Amount:</div>
             <div className="text-gray-800">{data.amount}</div>
           </div>
@@ -190,75 +195,75 @@ export default function ProfileSection() {
 
 
       <div className="flex-grow max-w-[70vw]">
-        <div className="bg-white shadow-md rounded-lg p-6">
-          <div className="w-full h-[390px]">
+        <div className="p-6 flex flex-col gap-3">
+          <div className="w-full h-[390px] bg-white shadow-md rounded-lg p-6">
             <canvas id="contestRatingChart"></canvas>
           </div>
-          <h2 className="mb-5">Solved Problems</h2>
-          <div className="flex gap-8 items-center justify-center w-full mb-5">
-            <div className="bg-light-4 rounded-full h-[100px] w-[100px] p-2">
-              <div className="bg-light-2 rounded-full h-full w-full flex flex-col justify-center items-center">
-                <h1 className="font-medium">490</h1>
-                <p>Solved</p>
+              
+          <div className="bg-white shadow-md rounded-lg p-6">
+            <h2 className="mb-5">Solved Problems</h2>
+            <div className="flex gap-8 items-center justify-center w-full mb-5">
+              <div className="bg-light-4 rounded-full h-[100px] w-[100px] p-2">
+                <div className="bg-light-2 rounded-full h-full w-full flex flex-col justify-center items-center">
+                  <h1 className="font-medium">490</h1>
+                  <p>Solved</p>
+                </div>
               </div>
-            </div>
 
-            <div className="flex items-center justify-between ">
-              <div className="flex-grow">
-                <h2 className="text-2xl font-semibold text-gray-800">
-                  {data.name}
-                </h2>
-                <div className="flex items-center mb-2">
-                  <div className="w-24 mr-2">Easy:</div>
-                  <div className="flex flex-1 bg-gray-200 h-4 rounded flex-grow w-[700px]">
-                    <div
-                      className="bg-green-500 h-full rounded-full"
-                      style={{
-                        width: `${
-                          (userInfo.rankings.problems.easy.solved /
-                            userInfo.rankings.problems.easy.total) *
-                          100
-                        }%`,
-                      }}
-                    />
+              <div className="flex items-center justify-between ">
+                <div className="flex-grow">
+                  <div className="flex items-center mb-2">
+                    <div className="w-24 mr-2">Easy:</div>
+                    <div className="flex flex-1 bg-gray-200 h-4 rounded flex-grow w-[700px]">
+                      <div
+                        className="bg-green-500 h-full rounded-full"
+                        style={{
+                          width: `${
+                            (userInfo.rankings.problems.easy.solved /
+                              userInfo.rankings.problems.easy.total) *
+                            100
+                          }%`,
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center mb-2">
-                  <div className="w-24 mr-2">Medium:</div>
-                  <div className="flex flex-1 bg-gray-200 h-4 rounded flex-grow">
-                    <div
-                      className="bg-yellow-500 h-full rounded-full"
-                      style={{
-                        width: `${
-                          (userInfo.rankings.problems.medium.solved /
-                            userInfo.rankings.problems.medium.total) *
-                          100
-                        }%`,
-                      }}
-                    />
+                  <div className="flex items-center mb-2">
+                    <div className="w-24 mr-2">Medium:</div>
+                    <div className="flex flex-1 bg-gray-200 h-4 rounded flex-grow">
+                      <div
+                        className="bg-yellow-500 h-full rounded-full"
+                        style={{
+                          width: `${
+                            (userInfo.rankings.problems.medium.solved /
+                              userInfo.rankings.problems.medium.total) *
+                            100
+                          }%`,
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center mb-2">
-                  <div className="w-24 mr-2">Tough:</div>
-                  <div className="flex flex-1 bg-gray-200 h-4 rounded flex-grow">
-                    <div
-                      className="bg-red-500 h-full rounded-full"
-                      style={{
-                        width: `${
-                          (userInfo.rankings.problems.tough.solved /
-                            userInfo.rankings.problems.tough.total) *
-                          100
-                        }%`,
-                      }}
-                    />
+                  <div className="flex items-center mb-2">
+                    <div className="w-24 mr-2">Tough:</div>
+                    <div className="flex flex-1 bg-gray-200 h-4 rounded flex-grow">
+                      <div
+                        className="bg-red-500 h-full rounded-full"
+                        style={{
+                          width: `${
+                            (userInfo.rankings.problems.tough.solved /
+                              userInfo.rankings.problems.tough.total) *
+                            100
+                          }%`,
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+          </div>
           </div>
 
           <div className="flex justify-between">
-            <div className="flex-grow max-w-full">
+            <div className="flex-grow max-w-full bg-white shadow-md rounded-lg p-6">
               <h3 className="text-lg font-semibold mb-2">
                 Badges
               </h3>

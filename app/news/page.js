@@ -56,29 +56,29 @@ const NewsPage = () => {
 
   return (
     <div className="container mx-auto flex justify-center items-center min-h-screen">
-      <div className="news-container w-full max-w-3xl bg-white p-4 rounded shadow-md">
+      <div className="news-container w-full max-w-6xl bg-white p-4 rounded-lg shadow-md my-6">
         <div className="flex justify-end mb-4">
           <button
-            className={`option-button mr-4 ${selectedOption === 'top' ? 'selected' : ''}`}
+            className={`option-button mr-4 ${selectedOption === 'top' ? 'selected font-medium' : ''}`}
             onClick={() => handleOptionChange('top')}
           >
             Top
           </button>
           <button
-            className={`option-button ${selectedOption === 'new' ? 'selected' : ''}`}
+            className={`option-button ${selectedOption === 'new' ? 'selected font-medium' : ''}`}
             onClick={() => handleOptionChange('new')}
           >
             Newest
           </button>
           <button
-            className={`option-button ml-4 ${selectedOption === 'job' ? 'selected' : ''}`}
+            className={`option-button ml-4 ${selectedOption === 'job' ? 'selected font-medium' : ''}`}
             onClick={() => handleOptionChange('job')}
           >
             Jobs
           </button>
         </div>
-        <h1 className="text-2xl font-bold mb-4">{pageTitle}</h1>
-        <ol className="card-container flex flex-col gap-4">
+        <h1 className="text-2xl font-bold mb-4 text-center">{pageTitle}</h1>
+        <ol className="card-container w-[500px] flex flex-col items-start mx-auto gap-4 my-4">
           {stories.map((story, index) => (
             <li key={story.id} className="card flex items-center">
               <span className="card-number text-xl font-bold text-gray-500 pr-4">
