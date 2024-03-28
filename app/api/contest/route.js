@@ -9,13 +9,13 @@ export async function POST(req) {
     await dbConnect();
     const body = await req.json();
     const createdContest = await Contest.create(body);
-    return new Response(createdContest);
+    return new Response(JSON.stringify(createdContest));
     }
 
 export async function GET() {
     await dbConnect();
     const contests = await Contest.find({});
-    return Response(contests);
+    return Response(JSON.stringify(contests));
 }
 
 export async function PUT(req) {
@@ -45,5 +45,5 @@ export async function PUT(req) {
         ranklist[userIndex].finish_time += contest.start - solvedProblem.solution[0].submissionTime;
     }
     await Contest.updateOne({id : body.id}, {ranklist : ranklist});
-    return new Response(contest);
+    return new Response(JSON.stringify(contest));
 }

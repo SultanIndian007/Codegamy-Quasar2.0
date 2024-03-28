@@ -5,11 +5,11 @@ export async function POST(req) {
   const body = await req.json();
   await dbConnect();
   const createdCourse = await Course.create(body);
-  return new Response(createdCourse);
+  return new Response(JSON.stringify(createdCourse));
 }
 
 export async function GET() {
   await dbConnect();
   const courses = await Course.find({});
-  return new Response(courses);
+  return new Response(JSON.stringify(courses));
 }
