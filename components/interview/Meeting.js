@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 
 const Meeting = ({roomId, username}) => {
 
-  const JaasAppId = 'vpaas-magic-cookie-456ae8466e3045318ab652c4b6895d79';
+  const JaasAppId = process.env.NEXT_PUBLIC_JAAS_APP_ID;
   const meetId = roomId;
   const apiRef = useRef(null);
   const [logItems, updateLog] = useState([]);

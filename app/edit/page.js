@@ -173,7 +173,7 @@ const Form = () => {
       >
         Submit
       </button>
-      <Link href ="/profile" ><u>Return Home</u></Link>
+      <Link href ="/profile" ><u>Return to Profile</u></Link>
     </form>
   );
 };
